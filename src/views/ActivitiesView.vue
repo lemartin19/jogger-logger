@@ -1,12 +1,17 @@
+<script setup lang="ts">
+</script>
+
 <template>
-  <div class="about">
-    <h2>About</h2>
-  </div>
+  <main>
+    <div class="activities">
+      <h2>Activities</h2>
+    </div>
+  </main>
 </template>
 
 <style scoped>
 @media (min-width: 1024px) {
-  .about {
+  .activities {
     min-height: 100vh;
     display: flex;
     align-items: center;

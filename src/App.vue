@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+
+// pull from store auth
+const auth = null;
 </script>
 
 <template>
@@ -9,6 +12,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink v-if="auth" to="/activities">Activities</RouterLink>
+        <RouterLink v-if="auth" to="/plan">Plan</RouterLink>
       </nav>
     </div>
   </header>

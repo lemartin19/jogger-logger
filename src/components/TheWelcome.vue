@@ -8,7 +8,7 @@ import LoginButton from './LoginButton.vue';
   <p>Welcome to Jogger Logger! Glad to have you here.</p>
 
   <p>
-    <!-- What is this -->
+    <!-- What is this thing and how do you use it -->
   </p>
 
   <LoginButton />
