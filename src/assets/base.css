@@ -1,14 +1,15 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --vt-c-white-soft: #e2e2e2;
 
   --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --vt-c-black-soft: #2f2f2f;
 
   --vt-c-indigo: #2c3e50;
+  --vt-c-vibrant-turquoise:hsla(160, 100%, 37%, 1);
+  --vt-c-light-turquoise:hsla(160, 45%, 75%, 1);
+  --vt-c-dark-turquoise:hsla(160, 30%, 25%, 1);
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
@@ -25,8 +26,10 @@
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
 
+  --color-primary: var(--vt-c-vibrant-turquoise);
+  --color-secondary: var(--vt-c-light-turquoise);
+  --color-tertiary: var(--vt-c-dark-turquoise);
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
 
@@ -40,8 +43,10 @@
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
 
+    --color-primary: var(--vt-c-vibrant-turquoise);
+    --color-secondary: var(--vt-c-dark-turquoise);
+    --color-tertiary: var(--vt-c-light-turquoise);
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
@@ -71,4 +76,60 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-heading);
+}
+
+button {
+  /* primary */
+  border-color: var(--color-primary);
+  background-color:var(--color-primary);
+  color:var(--vt-c-black);
+
+  /* medium */
+  font-size: 20px;
+  padding: 8px 12px;
+  border: 2px solid;
+  border-radius: 4px 4px;
+}
+
+button.small {
+  font-size: 14px;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-radius: 4px 4px;
+}
+
+button.medium {
+  font-size: 20px;
+  padding: 8px 12px;
+  border: 2px solid;
+  border-radius: 4px 4px;
+}
+
+button.large {
+  font-size: 28px;
+  padding: 12px 16px;
+  border: 3px solid;
+  border-radius: 8px 8px;
+}
+
+button.primary {
+  border-color: var(--color-primary);
+  background-color:var(--color-primary);
+  color:var(--vt-c-black);
+}
+
+button.secondary {
+  border-color: var(--color-secondary);
+  background-color:var(--color-secondary);
+  color:var(--vt-c-white-soft);
+}
+
+button.tertiary {
+  border-color: var(--color-tertiary);
+  background-color:var(--color-background);
+  color:var(--color-tertiary);
 }
