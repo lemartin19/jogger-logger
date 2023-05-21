@@ -14,6 +14,8 @@ dist-ssr
 coverage
 *.local
 
+.secrets.conf
+
 /cypress/videos/
 /cypress/screenshots/
 
