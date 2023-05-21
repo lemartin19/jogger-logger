@@ -1,12 +1,15 @@
 {
-  "name": "jogger-logger",
+  "name": "jogger-logger-server",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
   "scripts": {
-    "server": "cd jogger-logger && npm run dev",
-    "ui": "cd jogger-logger-ui && npm run dev",
-    "ts:server": "cd jogger-logger && npm run ts",
+    "dev": "npx ts-node ./src/index.ts",
+    "ts": "tsc --noEmit -w",
     "lint": "eslint . --ext ,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.1"
   }
 }
