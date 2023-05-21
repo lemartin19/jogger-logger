@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server": "cd jogger-logger && npm run dev",
-    "ui": "cd jogger-logger-ui && npm run dev",
+    "server": "./secrets.conf && cd jogger-logger && npm run dev",
+    "ui": "./secrets.conf && cd jogger-logger-ui && npm run dev",
     "ts:server": "cd jogger-logger && npm run ts",
     "lint": "eslint . --ext ,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
