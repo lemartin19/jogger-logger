@@ -7,9 +7,9 @@
   --vt-c-black-soft: #2f2f2f;
 
   --vt-c-indigo: #2c3e50;
-  --vt-c-vibrant-turquoise:hsla(160, 100%, 37%, 1);
-  --vt-c-light-turquoise:hsla(160, 45%, 75%, 1);
-  --vt-c-dark-turquoise:hsla(160, 30%, 25%, 1);
+  --vt-c-vibrant-turquoise: hsla(160, 100%, 37%, 1);
+  --vt-c-light-turquoise: hsla(160, 45%, 75%, 1);
+  --vt-c-dark-turquoise: hsla(160, 30%, 25%, 1);
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
@@ -78,15 +78,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-heading);
 }
 
 button {
   /* primary */
   border-color: var(--color-primary);
-  background-color:var(--color-primary);
-  color:var(--vt-c-black);
+  background-color: var(--color-primary);
+  color: var(--vt-c-black);
 
   /* medium */
   font-size: 20px;
@@ -118,18 +123,18 @@ button.large {
 
 button.primary {
   border-color: var(--color-primary);
-  background-color:var(--color-primary);
-  color:var(--vt-c-black);
+  background-color: var(--color-primary);
+  color: var(--vt-c-black);
 }
 
 button.secondary {
   border-color: var(--color-secondary);
-  background-color:var(--color-secondary);
-  color:var(--vt-c-white-soft);
+  background-color: var(--color-secondary);
+  color: var(--vt-c-white-soft);
 }
 
 button.tertiary {
   border-color: var(--color-tertiary);
-  background-color:var(--color-background);
-  color:var(--color-tertiary);
+  background-color: var(--color-background);
+  color: var(--color-tertiary);
 }
