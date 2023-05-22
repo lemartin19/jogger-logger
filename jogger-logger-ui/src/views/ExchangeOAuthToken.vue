@@ -9,13 +9,13 @@ export default {
   },
 
   mounted() {
-    const { code } = this.$route.params;
+    const { code } = this.$route.query;
 
     if (!code) {
       this.error = `Can't authorize to Strava without code parameter.`;
     }
 
-    const serverEndpoint = `http://${DEV ? 'localhost:3000' : VITE_SERVER}/exchange`;
+    const serverEndpoint = `http://${DEV ? 'localhost:5173/api' : VITE_SERVER}/exchange`;
     axios
       .get(serverEndpoint)
       .then((response) => {
