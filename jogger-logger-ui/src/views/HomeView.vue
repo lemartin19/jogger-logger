@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+import { getIsAuthed } from '@/stores/auth';
+
+export default {
+  data(): { isAuthed: boolean } {
+    const isAuthed = getIsAuthed(this.$cookies);
+    return { isAuthed };
+  },
+};
+</script>
 
 <template>
   <v-container class="fill-height">

@@ -1,14 +1,13 @@
 <script lang="ts">
+import { getIsAuthed } from '@/stores/auth';
 import LoginButton from './LoginButton.vue';
-
-const { VITE_AUTH_COOKIE } = import.meta.env;
 
 export default {
   data(): {
     isAuthed: boolean;
     drawer: boolean;
   } {
-    const isAuthed = Boolean(this.$cookies.get(VITE_AUTH_COOKIE));
+    const isAuthed = getIsAuthed(this.$cookies);
 
     return { isAuthed, drawer: false };
   },

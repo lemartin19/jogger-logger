@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import { getIsAuthed } from '@/stores/auth';
 
 function requireAuth() {
-  const { VITE_AUTH_COOKIE } = import.meta.env;
-
   try {
     // @ts-expect-error this is added by vue-cookies
-    const maybeCookie = window.$cookies.get(VITE_AUTH_COOKIE);
+    const maybeCookie = getIsAuthed(window.$cookies);
     if (maybeCookie) {
       return true;
     }
