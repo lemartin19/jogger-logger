@@ -29,7 +29,7 @@ export default {
         }
 
         this.$cookies.set(VITE_AUTH_COOKIE, accessToken, expiresIn || 0);
-        this.$router.push('/home');
+        this.$router.push('/');
       })
       .catch((e) => {
         this.loading = false;
