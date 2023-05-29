@@ -1,4 +1,6 @@
 <script lang="ts">
+import LoginButton from './LoginButton.vue';
+
 const { VITE_AUTH_COOKIE } = import.meta.env;
 
 export default {
@@ -10,12 +12,23 @@ export default {
 
     return { isAuthed, isDrawerOpen: false };
   },
+
+  components: { LoginButton },
+
+  methods: {
+    openDrawer() {
+      this.isAuthed = true;
+    },
+    closeDrawer() {
+      this.isAuthed = false;
+    },
+  },
 };
 </script>
 
 <template>
   <v-app-bar>
-    <v-app-bar-nav-icon @click="isDrawerOpen = true" v-click-outside="(isDrawerOpen = false)" />
+    <v-app-bar-nav-icon @click="openDrawer" v-click-outside="closeDrawer" />
     <v-navigation-drawer v-model="isDrawerOpen">
       <v-list>
         <v-list-item title="Home" to="/"></v-list-item>
@@ -26,5 +39,7 @@ export default {
     </v-navigation-drawer>
 
     <v-app-bar-title>Jogger Logger</v-app-bar-title>
+
+    <LoginButton vi-if="!isAuthed" v-slot:append />
   </v-app-bar>
 </template>

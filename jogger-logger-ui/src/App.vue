@@ -12,13 +12,12 @@ export default {
 </script>
 
 <template>
-  <v-app>
-    <v-layout>
-      <NavigationBar />
-
-      <v-main style="min-height: 300px">
+  <v-layout>
+    <v-main style="min-height: 300px">
+      <v-app>
+        <NavigationBar />
         <RouterView />
-      </v-main>
-    </v-layout>
-  </v-app>
+      </v-app>
+    </v-main>
+  </v-layout>
 </template>
