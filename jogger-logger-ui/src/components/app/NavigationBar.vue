@@ -30,7 +30,7 @@ export default {
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" v-click-outside="closeDrawer" />
     <v-app-bar-title>Jogger Logger</v-app-bar-title>
-    <LoginButton vi-if="!isAuthed" v-slot:append />
+    <LoginButton v-if="!isAuthed" v-slot:append />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="left" temporary>
