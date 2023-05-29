@@ -1,11 +1,13 @@
 <script lang="ts">
+import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 
 const { VITE_SERVER, DEV, VITE_AUTH_COOKIE } = import.meta.env;
 
 export default {
-  data(): { loading: boolean; error: string | null } {
-    return { loading: true, error: null };
+  data(): { loading: boolean; error: string | null; authStore: ReturnType<typeof useAuthStore> } {
+    const authStore = useAuthStore();
+    return { loading: true, error: null, authStore };
   },
 
   mounted() {
@@ -21,11 +23,15 @@ export default {
     axios
       .post(serverEndpoint)
       .then(({ data }) => {
+        const profile = data['profile'];
         const accessToken = data['access_token'];
         const expiresIn = data['expires_in'];
 
         if (!accessToken) {
           throw new Error(`Auth unsuccessful, invalid access token or expiration time.`);
+        }
+        if (profile) {
+          this.authStore.athleteProfile = profile;
         }
 
         this.$cookies.set(VITE_AUTH_COOKIE, accessToken, expiresIn || 0);

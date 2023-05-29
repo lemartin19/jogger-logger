@@ -1,10 +1,10 @@
 <script lang="ts">
-import { getIsAuthed } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth';
 
 export default {
-  data(): { isAuthed: boolean } {
-    const isAuthed = getIsAuthed(this.$cookies);
-    return { isAuthed };
+  setup() {
+    const authStore = useAuthStore();
+    return { authStore };
   },
 };
 </script>
@@ -13,7 +13,9 @@ export default {
   <v-container class="fill-height">
     <v-spacer />
     <v-col cols="6">
-      <h1>👋 Hey there</h1>
+      <h1>
+        👋 Hey there<span v-if="authStore.profileName"> {{ authStore.profileName }}</span>
+      </h1>
       <p>Welcome to Jogger Logger! Glad to have you here.</p>
       <!-- <v-row> -->
       <!-- What is this thing and how do you use it -->

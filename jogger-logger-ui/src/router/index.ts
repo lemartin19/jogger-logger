@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 import { getIsAuthed } from '@/stores/auth';
+import HomeViewVue from '@/views/HomeView.vue';
 
 function requireAuth() {
   try {
@@ -22,28 +22,28 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: HomeViewVue,
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      component: () => import('@/views/AboutView.vue'),
     },
     {
       path: '/exchange_token',
       name: 'oauth',
-      component: () => import('../views/ExchangeOAuthToken.vue'),
+      component: () => import('@/views/ExchangeOAuthToken.vue'),
     },
     {
       path: '/activities',
       name: 'activities',
-      component: () => import('../views/ActivitiesView.vue'),
+      component: () => import('@/views/ActivitiesView.vue'),
       beforeEnter: requireAuth,
     },
     {
       path: '/plan',
       name: 'plan',
-      component: () => import('../views/PlanView.vue'),
+      component: () => import('@/views/PlanView.vue'),
       beforeEnter: requireAuth,
     },
   ],
