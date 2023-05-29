@@ -11,7 +11,7 @@ function getService(pathname: string, method: string = 'GET') {
 }
 
 const server = createServer((request, response) => {
-  const url = new URL(request.url || '/', `http://${request.headers.host}`);
+  const url = new URL(request.url!, `http://${request.headers.host}`);
   const service = getService(url.pathname, request.method);
   if (service) {
     service(request, response);

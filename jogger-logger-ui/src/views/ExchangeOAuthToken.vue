@@ -1,11 +1,11 @@
 <script lang="ts">
 import axios from 'axios';
 
-const { VITE_SERVER, DEV } = import.meta.env;
+const { VITE_SERVER, DEV, VITE_AUTH_COOKIE } = import.meta.env;
 
 export default {
-  data(): { error: string | null } {
-    return { error: null };
+  data(): { loading: boolean; error: string | null } {
+    return { loading: true, error: null };
   },
 
   mounted() {
@@ -15,14 +15,24 @@ export default {
       this.error = `Can't authorize to Strava without code parameter.`;
     }
 
-    const serverEndpoint = `http://${DEV ? 'localhost:5173/api' : VITE_SERVER}/exchange`;
+    const serverEndpoint = `http://${
+      DEV ? 'localhost:5173/api' : VITE_SERVER
+    }/exchange?code=${code}`;
     axios
-      .get(serverEndpoint)
-      .then((response) => {
-        console.log(`response: ${response}`);
-        window.open('/home');
+      .post(serverEndpoint)
+      .then(({ data }) => {
+        const accessToken = data['access_token'];
+        const expiresIn = data['expires_in'];
+
+        if (!accessToken) {
+          throw new Error(`Auth unsuccessful, invalid access token or expiration time.`);
+        }
+
+        this.$cookies.set(VITE_AUTH_COOKIE, accessToken, expiresIn || 0);
+        this.$router.push('/home');
       })
       .catch((e) => {
+        this.loading = false;
         this.error = e.message;
       });
   },
@@ -35,5 +45,6 @@ export default {
     <p v-if="error">
       {{ error }}
     </p>
+    <v-progress-circular v-else indeterminate />
   </main>
 </template>
