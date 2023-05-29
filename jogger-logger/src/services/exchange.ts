@@ -9,8 +9,6 @@ function exchangeToken(code: string) {
   url.searchParams.set('code', code);
   url.searchParams.set('grant_type', 'authorization_code');
 
-  console.log(`url: ${url}`);
-
   return new Promise((resolve, reject) => {
     let response = '';
 
