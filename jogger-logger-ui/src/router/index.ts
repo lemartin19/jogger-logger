@@ -1,6 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 
+function requireAuth() {
+  const { VITE_AUTH_COOKIE } = import.meta.env;
+
+  try {
+    // @ts-expect-error this is added by vue-cookies
+    const maybeCookie = window.$cookies.get(VITE_AUTH_COOKIE);
+    if (maybeCookie) {
+      return true;
+    }
+  } catch (e) {
+    // handled in finally
+  } finally {
+    return { name: '/login' };
+  }
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -12,9 +28,6 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
     {
@@ -25,18 +38,14 @@ const router = createRouter({
     {
       path: '/activities',
       name: 'activities',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/ActivitiesView.vue'),
+      beforeEnter: requireAuth,
     },
     {
       path: '/plan',
       name: 'plan',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/PlanView.vue'),
+      beforeEnter: requireAuth,
     },
   ],
 });
