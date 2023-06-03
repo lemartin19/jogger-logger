@@ -32,10 +32,10 @@ export default {
 
 <template>
   <v-infinite-scroll @load="loadItems">
-    <div>
-      <template v-for="item in trainingWeeks" :key="item">
+    <template v-for="(item, index) in trainingWeeks" :key="item">
+      <v-card class="px-2" :color="index % 2 === 0 ? 'background' : 'surface'">
         <TrainingWeek :trainingWeek="item" />
-      </template>
-    </div>
+      </v-card>
+    </template>
   </v-infinite-scroll>
 </template>
