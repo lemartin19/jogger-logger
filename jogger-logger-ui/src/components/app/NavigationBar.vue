@@ -38,7 +38,7 @@ export default {
     <v-app-bar-nav-icon @click="drawer = !drawer" v-click-outside="closeDrawer" />
     <v-app-bar-title>
       <b>Jogger Logger</b>
-      <span v-if="pageName" class="grey-lighten-2"> - {{ pageName }}</span>
+      <span v-if="pageName" class="text-medium-emphasis"> - {{ pageName }}</span>
     </v-app-bar-title>
     <AppSettings v-slot:append />
   </v-app-bar>
