@@ -37,8 +37,10 @@ export default {
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" v-click-outside="closeDrawer" />
     <v-app-bar-title>
-      <b>Jogger Logger</b>
-      <span v-if="pageName" class="text-medium-emphasis"> - {{ pageName }}</span>
+      <h1>
+        Jogger Logger
+        <span v-if="pageName" class="text-medium-emphasis"> - {{ pageName }}</span>
+      </h1>
     </v-app-bar-title>
     <AppSettings v-slot:append />
   </v-app-bar>
@@ -52,3 +54,10 @@ export default {
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<style scoped>
+h1 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+</style>
