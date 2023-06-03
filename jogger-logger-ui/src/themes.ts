@@ -1,5 +1,7 @@
 import type { ThemeDefinition } from 'vuetify';
 
+// https://coolors.co/1e1e24-d0ddd9-5d8a7a-53796b-846887-bb8bb0-4d9bdc-7ca574-e9da76-cc2936
+
 const light: ThemeDefinition = {
   dark: false,
   colors: {
