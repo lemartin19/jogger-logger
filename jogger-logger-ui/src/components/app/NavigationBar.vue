@@ -1,15 +1,24 @@
 <script lang="ts">
 import { getIsAuthed } from '@/stores/auth';
 import LoginButton from './LoginButton.vue';
+import { routeNameToTitle } from '@/router';
+import { useRoute } from 'vue-router';
 
 export default {
   data(): {
     isAuthed: boolean;
     drawer: boolean;
+    pageName: string | null;
   } {
     const isAuthed = getIsAuthed(this.$cookies);
+    const pageName = routeNameToTitle(this.$route.name);
+    return { isAuthed, drawer: false, pageName };
+  },
 
-    return { isAuthed, drawer: false };
+  watch: {
+    $route(to, __from) {
+      this.pageName = routeNameToTitle(to.name);
+    },
   },
 
   components: { LoginButton },
@@ -28,7 +37,10 @@ export default {
 <template>
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" v-click-outside="closeDrawer" />
-    <v-app-bar-title>Jogger Logger</v-app-bar-title>
+    <v-app-bar-title>
+      <b>Jogger Logger</b>
+      <span v-if="pageName" class="grey-lighten-2"> - {{ pageName }}</span>
+    </v-app-bar-title>
     <LoginButton v-if="!isAuthed" v-slot:append />
   </v-app-bar>
 
