@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import type { VueCookies } from 'vue-cookies';
 
-export function getIsAuthed(cookies: VueCookies) {
+export function getAuthCookie(cookies: VueCookies): string | undefined {
   const { VITE_AUTH_COOKIE } = import.meta.env;
-  return Boolean(cookies.get(VITE_AUTH_COOKIE));
+  return cookies.get(VITE_AUTH_COOKIE);
 }
 
 export interface AthleteProfile {

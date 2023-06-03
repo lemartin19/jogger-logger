@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteLocationNormalized } from 'vue-router';
-import { getIsAuthed } from '@/stores/auth';
+import { getAuthCookie } from '@/stores/auth';
 import HomeViewVue from '@/views/HomeView.vue';
 
 function requireAuth(to: RouteLocationNormalized) {
@@ -9,7 +9,7 @@ function requireAuth(to: RouteLocationNormalized) {
 
   try {
     // @ts-expect-error this is added by vue-cookies
-    const maybeCookie = getIsAuthed(window.$cookies);
+    const maybeCookie = getAuthCookie(window.$cookies);
     if (maybeCookie) {
       return true;
     }
