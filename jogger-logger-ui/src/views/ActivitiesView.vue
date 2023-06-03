@@ -11,7 +11,7 @@ export default {
   components: { TrainingLog },
 
   mounted() {
-    this.activitiesStore.fetchActivities(this.$cookies);
+    this.activitiesStore.fetchInitialActivities(this.$cookies);
   },
 };
 </script>

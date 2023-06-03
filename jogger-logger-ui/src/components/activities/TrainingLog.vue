@@ -7,27 +7,35 @@ export default {
   data() {
     const activitiesStore = useActivitiesStore();
     const trainingWeeks = getActivitiesByWeek({ activities: activitiesStore.activities });
-    return { trainingWeeks };
+    return { activitiesStore, trainingWeeks };
   },
 
   components: { TrainingWeek },
 
   // TODO: virtualize infinite scroll
   methods: {
-    loadItems() {
-      // TODO: fetch more items
-      return this.trainingWeeks;
+    async loadItems({ done }: { done: (status: 'ok' | 'error' | 'empty') => void }) {
+      const newActivities = await this.activitiesStore.fetchNextActivities(this.$cookies);
+
+      if (!newActivities) {
+        done('error');
+      } else if (newActivities) {
+        done('empty');
+      } else {
+        this.trainingWeeks = getActivitiesByWeek({ activities: this.activitiesStore.activities });
+        done('ok');
+      }
     },
   },
 };
 </script>
 
 <template>
-  <div class="ma-16">
-    <v-infinite-scroll mode="manual" @load="loadItems" max-height="100%" max-width="100%">
+  <v-infinite-scroll @load="loadItems">
+    <div>
       <template v-for="item in trainingWeeks" :key="item">
         <TrainingWeek :trainingWeek="item" />
       </template>
-    </v-infinite-scroll>
-  </div>
+    </div>
+  </v-infinite-scroll>
 </template>

@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <v-row v-if="trainingWeek">
+  <v-row v-if="trainingWeek" class="flex-nowrap">
     <v-col class="ma-auto">
       {{
         trainingWeek.startDate.toLocaleDateString('en-us', {
