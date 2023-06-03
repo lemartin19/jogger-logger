@@ -8,5 +8,15 @@ export default {
 </script>
 
 <template>
-  <v-card v-if="activity" :title="activity.name" variant="tonal" class="ma-2" />
+  <v-hover v-if="activity">
+    <template v-slot:default="{ isHovering, props }">
+      <v-card
+        :title="activity.name"
+        variant="tonal"
+        class="ma-2"
+        v-bind="props"
+        :color="isHovering ? 'primary' : undefined"
+      />
+    </template>
+  </v-hover>
 </template>
