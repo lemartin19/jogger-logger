@@ -9,5 +9,4 @@ export const useActivitiesStore = defineStore('activity', {
   state(): State {
     return { activities: null };
   },
-  getters: {},
 });

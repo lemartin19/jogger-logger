@@ -13,7 +13,7 @@ export default {
 
 <template>
   <v-layout>
-    <v-main style="min-height: 300px">
+    <v-main style="min-height: 300px" :scrollable="false">
       <v-app>
         <NavigationBar />
         <RouterView />

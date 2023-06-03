@@ -3,12 +3,10 @@ import type { Activity } from '@/stores/activities/types';
 import type { PropType } from 'vue';
 
 export default {
-  props: {'activities': Object as PropType<Activity[]>},
+  props: { activity: Object as PropType<Activity> },
 };
 </script>
 
 <template>
-  <template v-for="activity in activities">
-    <v-col cols="2">{{ activity.name }}</v-col>
-  </template>
+  <v-card v-if="activity" :title="activity.name" variant="tonal" class="ma-2" />
 </template>
