@@ -4,17 +4,18 @@ import { getIsAuthed } from '@/stores/auth';
 import HomeViewVue from '@/views/HomeView.vue';
 
 function requireAuth(to: RouteLocationNormalized) {
+  const { name } = to;
+  const redirect = { name: 'home', query: { loginRequired: name ? String(name) : 'true' } };
+
   try {
     // @ts-expect-error this is added by vue-cookies
     const maybeCookie = getIsAuthed(window.$cookies);
     if (maybeCookie) {
       return true;
     }
+    return redirect;
   } catch (e) {
-    // handled in finally
-  } finally {
-    const { name } = to;
-    return { name: 'home', query: { loginRequired: name ? String(name) : 'true' } };
+    return redirect;
   }
 }
 
