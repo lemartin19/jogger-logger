@@ -14,6 +14,8 @@ export default {
   mounted() {
     const { code } = this.$route.query;
 
+    // TODO: record the provided scopes to the auth store
+
     if (!code) {
       this.error = `Can't authorize to Strava without code parameter.`;
     }
