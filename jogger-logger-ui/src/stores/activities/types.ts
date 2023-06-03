@@ -52,15 +52,15 @@ export type SportType =
   | 'Yoga';
 
 //https://developers.strava.com/docs/reference/#api-models-MetaAthlete
-interface MetaAthlete {
+export interface MetaAthlete {
   id: number;
 }
 
 // https://developers.strava.com/docs/reference/#api-models-LatLng
-type LatLng = [number, number];
+export type LatLng = [number, number];
 
 // https://developers.strava.com/docs/reference/#api-models-PolylineMap
-interface PolylineMap {
+export interface PolylineMap {
   id: string;
   polyline: string;
   summary_polyline: string;
