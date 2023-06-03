@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteLocationNormalized } from 'vue-router';
 import { getIsAuthed } from '@/stores/auth';
 import HomeViewVue from '@/views/HomeView.vue';
 
-function requireAuth() {
+function requireAuth(to: RouteLocationNormalized) {
   try {
     // @ts-expect-error this is added by vue-cookies
     const maybeCookie = getIsAuthed(window.$cookies);
@@ -12,7 +13,8 @@ function requireAuth() {
   } catch (e) {
     // handled in finally
   } finally {
-    return { name: '/login' };
+    const { name } = to;
+    return { name: 'home', query: { loginRequired: name ? String(name) : 'true' } };
   }
 }
 
