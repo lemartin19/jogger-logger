@@ -3,7 +3,7 @@ import Activities from '@/components/activities/Activities.vue';
 
 export default {
   data() {
-    return { activities: null };
+    return { activities: null, error:null };
   },
 
   components: { Activities },
@@ -19,8 +19,13 @@ export default {
   <v-container class="fill-height">
     <v-row>
       <Activities v-if="activities" />
-      <v-col cols="12" v-else>
-        <v-progress-circular indeterminate />
+      <v-col v-else-if="error">
+        <v-alert  type="error" variant="tonal" class="my-4">
+          {{ error }}
+        </v-alert>
+      </v-col>
+      <v-col v-else>
+        <v-progress-circular color="primary" indeterminate />
       </v-col>
     </v-row>
   </v-container>
