@@ -11,15 +11,23 @@ export default {
   },
 
   components: { TrainingWeek },
+
+  // TODO: virtualize infinite scroll
+  methods: {
+    loadItems() {
+      // TODO: fetch more items
+      return this.trainingWeeks;
+    },
+  },
 };
 </script>
 
 <template>
   <div class="ma-16">
-    <v-virtual-scroll :items="trainingWeeks" max-height="100%" max-width="100%">
-      <template v-slot:default="{ item }">
+    <v-infinite-scroll mode="manual" @load="loadItems" max-height="100%" max-width="100%">
+      <template v-for="item in trainingWeeks" :key="item">
         <TrainingWeek :trainingWeek="item" />
       </template>
-    </v-virtual-scroll>
+    </v-infinite-scroll>
   </div>
 </template>

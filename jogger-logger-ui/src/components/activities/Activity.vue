@@ -11,7 +11,7 @@ export default {
   <v-hover v-if="activity">
     <template v-slot:default="{ isHovering, props }">
       <v-card
-        :title="activity.name"
+        :text="activity.name"
         variant="tonal"
         class="ma-2"
         v-bind="props"
