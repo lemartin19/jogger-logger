@@ -10,10 +10,12 @@ import VueCookies from 'vue-cookies';
 
 import App from './App.vue';
 import router from './router';
+import { themes } from './themes';
 
 const vuetify = createVuetify({
   theme: {
     defaultTheme: 'dark',
+    themes,
   },
   components,
   directives,

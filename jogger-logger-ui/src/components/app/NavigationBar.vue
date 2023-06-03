@@ -1,18 +1,26 @@
 <script lang="ts">
 import { getIsAuthed } from '@/stores/auth';
-import LoginButton from './LoginButton.vue';
+import { routeNameToTitle } from '@/router';
+import AppSettings from './AppSettings.vue';
 
 export default {
   data(): {
     isAuthed: boolean;
     drawer: boolean;
+    pageName: string | null;
   } {
     const isAuthed = getIsAuthed(this.$cookies);
-
-    return { isAuthed, drawer: false };
+    const pageName = routeNameToTitle(this.$route.name);
+    return { isAuthed, drawer: false, pageName };
   },
 
-  components: { LoginButton },
+  watch: {
+    $route(to, __from) {
+      this.pageName = routeNameToTitle(to.name);
+    },
+  },
+
+  components: { AppSettings },
 
   methods: {
     openDrawer() {
@@ -28,8 +36,13 @@ export default {
 <template>
   <v-app-bar>
     <v-app-bar-nav-icon @click="drawer = !drawer" v-click-outside="closeDrawer" />
-    <v-app-bar-title>Jogger Logger</v-app-bar-title>
-    <LoginButton v-if="!isAuthed" v-slot:append />
+    <v-app-bar-title>
+      <h1>
+        Jogger Logger
+        <span v-if="pageName" class="text-medium-emphasis"> - {{ pageName }}</span>
+      </h1>
+    </v-app-bar-title>
+    <AppSettings v-slot:append />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="left" temporary>
@@ -41,3 +54,10 @@ export default {
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<style scoped>
+h1 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+</style>

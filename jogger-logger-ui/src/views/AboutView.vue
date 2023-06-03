@@ -3,7 +3,6 @@
     <v-row>
       <v-spacer />
       <v-col cols="6">
-        <h1 class="my-4">About</h1>
         <p class="my-4">
           This is a personal project to make it easier to combine the historical tracking and
           analysis of Strava with an interface to plan your future training. Knowing how you've
