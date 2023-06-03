@@ -2,7 +2,7 @@
 import { getIsAuthed } from '@/stores/auth';
 import { eventBus, COOKIE_SET } from '@/EventBus';
 import LoginButton from './LoginButton.vue';
-import ThemeSwitch from './ThemeSwitch.vue';
+import ThemeToggle from './ThemeToggle.vue';
 
 export default {
   data() {
@@ -18,7 +18,7 @@ export default {
     eventBus.unsubscribe(COOKIE_SET, this.setIsAuthed);
   },
 
-  components: { LoginButton, ThemeSwitch },
+  components: { LoginButton, ThemeToggle },
 
   methods: {
     setIsAuthed() {
@@ -30,7 +30,7 @@ export default {
 
 <template>
   <div class="mx-4 d-inline-flex">
-    <ThemeSwitch />
+    <ThemeToggle />
     <LoginButton v-if="!isAuthed" />
   </div>
 </template>
