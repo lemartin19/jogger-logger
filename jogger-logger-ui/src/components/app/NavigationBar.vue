@@ -1,8 +1,7 @@
 <script lang="ts">
 import { getIsAuthed } from '@/stores/auth';
-import LoginButton from './LoginButton.vue';
 import { routeNameToTitle } from '@/router';
-import { useRoute } from 'vue-router';
+import AppSettings from './AppSettings.vue';
 
 export default {
   data(): {
@@ -21,7 +20,7 @@ export default {
     },
   },
 
-  components: { LoginButton },
+  components: { AppSettings },
 
   methods: {
     openDrawer() {
@@ -41,7 +40,7 @@ export default {
       <b>Jogger Logger</b>
       <span v-if="pageName" class="grey-lighten-2"> - {{ pageName }}</span>
     </v-app-bar-title>
-    <LoginButton v-if="!isAuthed" v-slot:append />
+    <AppSettings v-slot:append />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="left" temporary>
