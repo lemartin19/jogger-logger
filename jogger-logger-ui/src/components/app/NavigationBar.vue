@@ -16,10 +16,10 @@ export default {
 
   methods: {
     openDrawer() {
-      this.isAuthed = true;
+      this.drawer = true;
     },
     closeDrawer() {
-      this.isAuthed = false;
+      this.drawer = false;
     },
   },
 };
