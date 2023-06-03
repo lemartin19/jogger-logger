@@ -6,7 +6,7 @@ import ThemeSwitch from './ThemeSwitch.vue';
 
 export default {
   data() {
-    const isAuthed = getIsAuthed(this.$cookies);
+    const isAuthed = Boolean(getIsAuthed(this.$cookies));
     return { isAuthed };
   },
 
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div class="mx-4">
+  <div class="mx-4 d-inline-flex">
     <ThemeSwitch />
     <LoginButton v-if="!isAuthed" />
   </div>

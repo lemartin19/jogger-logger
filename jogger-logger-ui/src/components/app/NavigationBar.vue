@@ -1,5 +1,5 @@
 <script lang="ts">
-import { getIsAuthed } from '@/stores/auth';
+import { getAuthCookie } from '@/stores/auth';
 import { routeNameToTitle } from '@/router';
 import { eventBus, COOKIE_SET } from '@/EventBus';
 import AppSettings from './AppSettings.vue';
@@ -10,7 +10,7 @@ export default {
     drawer: boolean;
     pageName: string | null;
   } {
-    const isAuthed = getIsAuthed(this.$cookies);
+    const isAuthed = Boolean(getAuthCookie(this.$cookies));
     const pageName = routeNameToTitle(this.$route.name);
     return { isAuthed, drawer: false, pageName };
   },
