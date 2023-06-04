@@ -12,11 +12,13 @@ export default {
 </script>
 
 <template>
-  <v-layout :scrollable="false">
-    <v-main style="min-height: 300px" :scrollable="false">
-      <v-app :scrollable="false">
+  <v-layout>
+    <v-main>
+      <v-app>
         <NavigationBar />
-        <RouterView />
+        <div class="pt-16">
+          <RouterView />
+        </div>
       </v-app>
     </v-main>
   </v-layout>

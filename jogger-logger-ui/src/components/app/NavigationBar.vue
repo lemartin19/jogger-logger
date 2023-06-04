@@ -70,9 +70,6 @@ export default {
 <style scoped>
 h1 {
   font-size: 1.2em;
-  font-weight: 700;
-}
-.v-app-bar {
-  position: static !important;
+  font-weight: 500;
 }
 </style>

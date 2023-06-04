@@ -31,11 +31,9 @@ export default {
 </script>
 
 <template>
-  <v-infinite-scroll @load="loadItems">
-    <template v-for="(item, index) in trainingWeeks" :key="item">
-      <v-card class="px-2" :color="index % 2 === 0 ? 'background' : 'surface'">
-        <TrainingWeek :trainingWeek="item" />
-      </v-card>
+  <v-virtual-scroll class="px-8 py-4" style="max-height: calc(100vh - 64px)" :items="trainingWeeks">
+    <template v-slot:default="{ item }">
+      <TrainingWeek :trainingWeek="item" />
     </template>
-  </v-infinite-scroll>
+  </v-virtual-scroll>
 </template>

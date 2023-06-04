@@ -17,11 +17,9 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex align-center justify-center flex-fill ma-12">
-    <TrainingLog v-if="activitiesStore.activities" class="align-self-start" />
-    <v-alert v-else-if="activitiesStore.error" type="error" variant="tonal" class="my-4">
-      {{ error }}
-    </v-alert>
-    <v-progress-circular v-else color="primary" indeterminate />
-  </div>
+  <TrainingLog v-if="activitiesStore.activities" class="align-self-start" />
+  <v-alert v-else-if="activitiesStore.error" type="error" variant="tonal" class="my-4">
+    {{ error }}
+  </v-alert>
+  <v-progress-circular v-else color="primary" indeterminate />
 </template>
