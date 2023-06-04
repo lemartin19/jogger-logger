@@ -8,7 +8,7 @@ export default {
   data() {
     const activitiesStore = useActivitiesStore();
     const trainingWeeks = getActivitiesByWeek({ activities: activitiesStore.activities });
-    return { activitiesStore, trainingWeeks };
+    return { activitiesStore, trainingWeeks, loading: false, canLoadMore: true };
   },
 
   computed: {
@@ -19,18 +19,26 @@ export default {
 
   components: { TrainingWeek },
 
-  // TODO: virtualize infinite scroll
   methods: {
-    async loadItems({ done }: { done: (status: 'ok' | 'error' | 'empty') => void }) {
-      const newActivities = await this.activitiesStore.fetchNextActivities(this.$cookies);
+    async loadItems() {
+      if (!this.canLoadMore) return;
 
-      if (!newActivities) {
-        done('error');
-      } else if (newActivities) {
-        done('empty');
-      } else {
+      this.loading = true;
+      const newActivities = await this.activitiesStore.fetchNextActivities(this.$cookies);
+      this.loading = false;
+
+      this.canLoadMore = Boolean(newActivities && newActivities.length !== 0);
+      if (newActivities && newActivities.length !== 0) {
         this.trainingWeeks = getActivitiesByWeek({ activities: this.activitiesStore.activities });
-        done('ok');
+      }
+    },
+
+    // TODO: debounce
+    scrollListener(event: Event) {
+      const element = event.currentTarget || event.target;
+      // @ts-expect-error the scroll events have these values
+      if (element && element.scrollHeight - element.scrollTop === element.clientHeight) {
+        this.loadItems();
       }
     },
   },
@@ -43,9 +51,12 @@ export default {
     style="max-height: calc(100vh - 64px)"
     :items="trainingWeeks"
     :item-height="itemHeight"
+    @scroll.native="scrollListener"
   >
     <template v-slot:default="{ item }">
       <TrainingWeek :trainingWeek="item" />
     </template>
   </v-virtual-scroll>
+  <v-progress-circular v-if="loading" color="primary" indeterminate />
+  <v-alert v-if="activitiesStore.error" type="error">{{activitiesStore.error}}</v-alert>
 </template>
