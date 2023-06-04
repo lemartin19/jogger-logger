@@ -14,13 +14,17 @@ export default {
     eventBus.subscribe(COOKIE_SET, this.setIsAuthed);
   },
 
+  unmounted() {
+    eventBus.unsubscribe(COOKIE_SET, this.setIsAuthed);
+  },
+
   components: { LoginButton, ThemeSwitch },
 
   methods: {
     setIsAuthed() {
-      this.isAuthed = getIsAuthed(this.$cookies)
-    }
-  }
+      this.isAuthed = getIsAuthed(this.$cookies);
+    },
+  },
 };
 </script>
 

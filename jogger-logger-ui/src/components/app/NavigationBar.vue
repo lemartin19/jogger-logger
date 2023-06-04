@@ -15,10 +15,6 @@ export default {
     return { isAuthed, drawer: false, pageName };
   },
 
-  mounted() {
-    eventBus.subscribe(COOKIE_SET, this.setIsAuthed);
-  },
-
   watch: {
     $route(to, __from) {
       this.pageName = routeNameToTitle(to.name);
@@ -26,6 +22,14 @@ export default {
   },
 
   components: { AppSettings },
+
+  mounted() {
+    eventBus.subscribe(COOKIE_SET, this.setIsAuthed);
+  },
+
+  unmounted() {
+    eventBus.unsubscribe(COOKIE_SET, this.setIsAuthed);
+  },
 
   methods: {
     openDrawer() {
@@ -35,8 +39,8 @@ export default {
       this.drawer = false;
     },
     setIsAuthed() {
-      this.isAuthed = getIsAuthed(this.$cookies)
-    }
+      this.isAuthed = getIsAuthed(this.$cookies);
+    },
   },
 };
 </script>
