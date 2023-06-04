@@ -1,6 +1,7 @@
 <script lang="ts">
 import { getIsAuthed } from '@/stores/auth';
 import { routeNameToTitle } from '@/router';
+import { eventBus, COOKIE_SET } from '@/EventBus';
 import AppSettings from './AppSettings.vue';
 
 export default {
@@ -14,12 +15,13 @@ export default {
     return { isAuthed, drawer: false, pageName };
   },
 
+  mounted() {
+    eventBus.subscribe(COOKIE_SET, this.setIsAuthed);
+  },
+
   watch: {
     $route(to, __from) {
       this.pageName = routeNameToTitle(to.name);
-    },
-    $cookies(to, __from) {
-      this.isAuthed = getIsAuthed(to);
     },
   },
 
@@ -32,6 +34,9 @@ export default {
     closeDrawer() {
       this.drawer = false;
     },
+    setIsAuthed() {
+      this.isAuthed = getIsAuthed(this.$cookies)
+    }
   },
 };
 </script>

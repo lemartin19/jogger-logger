@@ -1,6 +1,7 @@
 <script lang="ts">
 import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
+import { eventBus, COOKIE_SET } from '@/EventBus';
 
 const { VITE_SERVER, DEV, VITE_AUTH_COOKIE } = import.meta.env;
 
@@ -35,6 +36,7 @@ export default {
         }
 
         this.$cookies.set(VITE_AUTH_COOKIE, accessToken, expiresIn || 0);
+        eventBus.emit(COOKIE_SET);
         this.$router.push('/');
       })
       .catch((e) => {
