@@ -2,12 +2,19 @@
 import { useActivitiesStore } from '@/stores/activities';
 import { getActivitiesByWeek } from '@/stores/activities/getActivitiesByWeek';
 import TrainingWeek from './TrainingWeek.vue';
+import { ACTIVITY_HEIGHT } from './constants';
 
 export default {
   data() {
     const activitiesStore = useActivitiesStore();
     const trainingWeeks = getActivitiesByWeek({ activities: activitiesStore.activities });
     return { activitiesStore, trainingWeeks };
+  },
+
+  computed: {
+    itemHeight() {
+      return ACTIVITY_HEIGHT;
+    },
   },
 
   components: { TrainingWeek },
@@ -31,7 +38,12 @@ export default {
 </script>
 
 <template>
-  <v-virtual-scroll class="px-8 py-4" style="max-height: calc(100vh - 64px)" :items="trainingWeeks">
+  <v-virtual-scroll
+    class="px-8 py-4"
+    style="max-height: calc(100vh - 64px)"
+    :items="trainingWeeks"
+    :item-height="itemHeight"
+  >
     <template v-slot:default="{ item }">
       <TrainingWeek :trainingWeek="item" />
     </template>

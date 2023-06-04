@@ -1,9 +1,15 @@
 <script lang="ts">
 import type { Activity } from '@/stores/activities/types';
 import type { PropType } from 'vue';
+import { ACTIVITY_HEIGHT } from './constants';
 
 export default {
   props: { activity: Object as PropType<Activity> },
+  computed: {
+    maxHeight() {
+      return ACTIVITY_HEIGHT;
+    },
+  },
 };
 </script>
 
@@ -15,7 +21,8 @@ export default {
         variant="tonal"
         class="ma-2"
         v-bind="props"
-        :color="isHovering ? 'primary' : undefined"
+        :color="isHovering ? 'secondary' : 'primary'"
+        :max-height="maxHeight"
       />
     </template>
   </v-hover>
