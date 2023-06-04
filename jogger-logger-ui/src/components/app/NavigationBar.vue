@@ -18,6 +18,9 @@ export default {
     $route(to, __from) {
       this.pageName = routeNameToTitle(to.name);
     },
+    $cookies(to, __from) {
+      this.isAuthed = getIsAuthed(to);
+    },
   },
 
   components: { AppSettings },
