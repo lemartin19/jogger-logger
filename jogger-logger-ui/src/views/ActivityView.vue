@@ -31,7 +31,7 @@ export default {
       <h2>{{ activity.name }}</h2>
       <v-container class="ma-0">
         <v-row>
-          <template v-for="{ key,label, format } in datum">
+          <template v-for="{ key, label, format } in datum">
             <ActivityData :label="label" :value="activity[key]" :format="format" />
           </template>
         </v-row>

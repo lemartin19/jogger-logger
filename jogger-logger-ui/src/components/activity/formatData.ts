@@ -1,9 +1,10 @@
 export function dateToString(date: Date) {
-  return date.toLocaleDateString('en-us', {
+  return date.toLocaleString('en-us', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-    timeStyle: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
   });
 }
 
@@ -17,7 +18,12 @@ const ONE_HOUR = 60 * ONE_MINUTE;
 
 export function secondsToHours(time: number) {
   const hours = Math.floor(time / ONE_HOUR);
-  const minutes = Math.floor((time % ONE_HOUR) / ONE_MINUTE);
-  const seconds = time % ONE_MINUTE;
-  return `${hours}:${minutes}:${seconds}`;
+  const minutes = `${Math.floor((time % ONE_HOUR) / ONE_MINUTE)}`;
+  const seconds = `${time % ONE_MINUTE}`;
+
+  if (hours) {
+    return `${hours}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+  }
+
+  return `${minutes}:${seconds.padStart(2, '0')}`;
 }

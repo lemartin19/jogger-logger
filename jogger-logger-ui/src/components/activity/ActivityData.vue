@@ -1,12 +1,10 @@
 <script lang="ts">
-import { format } from 'path';
-
 export default {
   props: ['label', 'value', 'format'],
 
-  setup(props){
-    return {formattedData: props.format(props.value)}
-  }
+  setup(props) {
+    return { formattedData: props.format(props.value) };
+  },
 };
 </script>
 
@@ -16,7 +14,7 @@ export default {
       <div class="pa-4">
         {{ label }}
         <div style="font-size: 2.25em">
-          {{ value }}
+          {{ formattedData }}
         </div>
       </div>
     </v-card>
