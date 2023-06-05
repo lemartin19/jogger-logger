@@ -42,6 +42,12 @@ const routes = [
     beforeEnter: requireAuth,
   },
   {
+    path: '/activities/:id',
+    name: 'activity',
+    component: () => import('@/views/ActivityView.vue'),
+    beforeEnter: requireAuth,
+  },
+  {
     path: '/plan',
     name: 'plan',
     component: () => import('@/views/PlanView.vue'),
@@ -51,6 +57,8 @@ const routes = [
 
 export function routeNameToTitle(name: Symbol | string | null | undefined) {
   switch (name) {
+    case 'activity':
+      return 'Activity';
     case 'activities':
       return 'Activities';
     case 'plan':

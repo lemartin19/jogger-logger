@@ -16,9 +16,9 @@
             variant="text"
             href="https://github.com/lemartin19/jogger-logger/issues"
             class="my-2"
-            append-icon="mdi-open-in-new"
-            >File an issue in GitHub</v-btn
-          >
+            append-icon="mdi-open-in-new">
+            File an issue in GitHub
+            </v-btn>
         </v-row>
       </v-col>
       <v-spacer />

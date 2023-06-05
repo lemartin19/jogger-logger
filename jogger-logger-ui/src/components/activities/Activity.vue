@@ -2,12 +2,28 @@
 import type { Activity } from '@/stores/activities/types';
 import type { PropType } from 'vue';
 import { ACTIVITY_HEIGHT } from './constants';
+import { useCurrentActivityStore } from '@/stores/current-activity';
 
 export default {
   props: { activity: Object as PropType<Activity> },
+
+  setup() {
+    const currentActivityStore = useCurrentActivityStore();
+    return { currentActivityStore };
+  },
+
   computed: {
     maxHeight() {
       return ACTIVITY_HEIGHT;
+    },
+  },
+
+  methods: {
+    setCurrentActivity() {
+      if (this.activity) {
+        this.$router.push(`/activities/${this.activity.id}`)
+        this.currentActivityStore.currentActivity = this.activity;
+      }
     },
   },
 };
@@ -23,6 +39,7 @@ export default {
         v-bind="props"
         :color="isHovering ? 'secondary' : 'primary'"
         :max-height="maxHeight"
+        @click="setCurrentActivity"
       />
     </template>
   </v-hover>

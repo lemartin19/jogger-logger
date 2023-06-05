@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import type { VueCookies } from 'vue-cookies';
-import type { Activity } from './activities/types';
-import { getAuthCookie } from './auth';
+import type { Activity } from './types';
+import { getAuthCookie } from '../auth';
 
 function formatActivities(activities: Activity[]) {
   return activities.map((activity) => ({
