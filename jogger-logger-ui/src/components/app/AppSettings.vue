@@ -1,12 +1,12 @@
 <script lang="ts">
-import { getIsAuthed } from '@/stores/auth';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { getAuthCookie } from '@/stores/auth';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 import LoginButton from './LoginButton.vue';
-import ThemeSwitch from './ThemeSwitch.vue';
+import ThemeToggle from './ThemeToggle.vue';
 
 export default {
   data() {
-    const isAuthed = getIsAuthed(this.$cookies);
+    const isAuthed = Boolean(getAuthCookie(this.$cookies));
     return { isAuthed };
   },
 
@@ -18,19 +18,19 @@ export default {
     eventBus.unsubscribe(COOKIE_SET, this.setIsAuthed);
   },
 
-  components: { LoginButton, ThemeSwitch },
+  components: { LoginButton, ThemeToggle },
 
   methods: {
     setIsAuthed() {
-      this.isAuthed = getIsAuthed(this.$cookies);
+      this.isAuthed = Boolean(getAuthCookie(this.$cookies));
     },
   },
 };
 </script>
 
 <template>
-  <div class="mx-4">
-    <ThemeSwitch />
+  <div class="mx-4 d-inline-flex">
+    <ThemeToggle />
     <LoginButton v-if="!isAuthed" />
   </div>
 </template>

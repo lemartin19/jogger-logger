@@ -13,10 +13,12 @@ export default {
 
 <template>
   <v-layout>
-    <v-main style="min-height: 300px">
+    <v-main>
       <v-app>
         <NavigationBar />
-        <RouterView />
+        <div class="pt-16 fill-height">
+          <RouterView />
+        </div>
       </v-app>
     </v-main>
   </v-layout>

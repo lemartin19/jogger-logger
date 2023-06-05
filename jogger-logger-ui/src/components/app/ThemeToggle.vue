@@ -17,14 +17,11 @@ export default {
 </script>
 
 <template>
-  <v-switch
-    value="theme"
-    @change="toggleTheme"
-    :label="`${theme.global.name} mode`"
+  <v-btn
+    @click="toggleTheme"
     color="primary"
-    hide-details
-    inset
-    true-value="dark"
-    false-value="light"
+    icon="mdi-theme-light-dark"
+    size="medium"
+    class="px-2 ma-1"
   />
 </template>

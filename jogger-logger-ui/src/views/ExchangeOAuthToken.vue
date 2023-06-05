@@ -1,7 +1,7 @@
 <script lang="ts">
 import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 
 const { VITE_SERVER, DEV, VITE_AUTH_COOKIE } = import.meta.env;
 
@@ -13,6 +13,8 @@ export default {
 
   mounted() {
     const { code } = this.$route.query;
+
+    // TODO: record the provided scopes to the auth store
 
     if (!code) {
       this.error = `Can't authorize to Strava without code parameter.`;

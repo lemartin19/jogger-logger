@@ -1,7 +1,7 @@
 <script lang="ts">
-import { getIsAuthed } from '@/stores/auth';
+import { getAuthCookie } from '@/stores/auth';
 import { routeNameToTitle } from '@/router';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 import AppSettings from './AppSettings.vue';
 
 export default {
@@ -10,7 +10,7 @@ export default {
     drawer: boolean;
     pageName: string | null;
   } {
-    const isAuthed = getIsAuthed(this.$cookies);
+    const isAuthed = Boolean(getAuthCookie(this.$cookies));
     const pageName = routeNameToTitle(this.$route.name);
     return { isAuthed, drawer: false, pageName };
   },
@@ -39,7 +39,7 @@ export default {
       this.drawer = false;
     },
     setIsAuthed() {
-      this.isAuthed = getIsAuthed(this.$cookies);
+      this.isAuthed = Boolean(getAuthCookie(this.$cookies));
     },
   },
 };
@@ -70,6 +70,6 @@ export default {
 <style scoped>
 h1 {
   font-size: 1.2em;
-  font-weight: 700;
+  font-weight: 500;
 }
 </style>

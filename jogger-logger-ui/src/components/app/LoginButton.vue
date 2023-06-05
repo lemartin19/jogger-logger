@@ -13,11 +13,5 @@ function initOAuth() {
 </script>
 
 <template>
-  <v-btn @click="initOAuth" class="tertiary medium">Login</v-btn>
+  <v-btn @click="initOAuth" class="tertiary medium ma-1">Login</v-btn>
 </template>
-
-<style scoped>
-button {
-  margin: 16px 0;
-}
-</style>
