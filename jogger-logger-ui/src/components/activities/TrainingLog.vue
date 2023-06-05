@@ -6,16 +6,13 @@ import TrainingWeek from './TrainingWeek.vue';
 import { ACTIVITY_HEIGHT } from './constants';
 import DebouncedVirtualScroll from './DebouncedVirtualScroll.vue';
 
-const LOADER_HEIGHT = 48;
-const ALERT_HEIGHT = 64;
+const APP_BAR_HEIGHT = 64;
 const LOADING_BUFFER = ACTIVITY_HEIGHT;
 
 export default {
   setup() {
     return {
       itemHeight: ACTIVITY_HEIGHT,
-      loaderHeight: LOADER_HEIGHT,
-      alertHeight: ALERT_HEIGHT,
       debounce,
     };
   },
@@ -29,13 +26,8 @@ export default {
       trainingWeeks,
       loading: false,
       canLoadMore: true,
+      maxHeightDiff: APP_BAR_HEIGHT,
     };
-  },
-
-  computed: {
-    maxHeightDiff() {
-      return (this.loading ? LOADER_HEIGHT : 0) + (this.activitiesStore.error ? ALERT_HEIGHT : 0);
-    },
   },
 
   components: { TrainingWeek, DebouncedVirtualScroll },
@@ -83,8 +75,10 @@ export default {
       <TrainingWeek :trainingWeek="item" />
     </template>
   </DebouncedVirtualScroll>
-  <v-progress-circular v-if="loading" color="primary" indeterminate :height="loaderHeight" />
-  <v-alert v-if="activitiesStore.error" type="error" :height="alertHeight">
-    {{ activitiesStore.error }}
-  </v-alert>
+  <div class="d-flex flex-column align-center" style="position: absolute; bottom: 0">
+    <v-alert type="error" class="ma-4" height="64px">
+      {{ activitiesStore.error || 'contents' }}
+    </v-alert>
+    <v-progress-circular v-if="loading" class="mb-4" color="primary" indeterminate height="48px" />
+  </div>
 </template>
