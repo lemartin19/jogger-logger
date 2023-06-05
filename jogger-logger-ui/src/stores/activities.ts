@@ -1,8 +1,8 @@
+import axios from 'axios';
 import { defineStore } from 'pinia';
+import type { VueCookies } from 'vue-cookies';
 import type { Activity } from './activities/types';
 import { getAuthCookie } from './auth';
-import type { VueCookies } from 'vue-cookies';
-import axios from 'axios';
 
 function formatActivities(activities: Activity[]) {
   return activities.map((activity) => ({
@@ -34,7 +34,7 @@ function fetchActivities(cookies: VueCookies, args: FetchActivityArgs = {}) {
 
 interface Loading {
   args: FetchActivityArgs;
-  promise: ReturnType<typeof fetchActivities>;
+  promise: Promise<Activity[]>;
 }
 
 export interface State {
@@ -54,9 +54,9 @@ export const useActivitiesStore = defineStore('activity', {
         return this.loading.promise;
       }
 
-      this.loading = { args: {}, promise: fetchActivities(cookies) };
+      this.loading = { args: {}, promise: fetchActivities(cookies).then(({ data }) => data) };
       try {
-        const { data } = await this.loading.promise;
+        const data = await this.loading.promise;
         this.loading = null;
         this.activities = data;
         return data;
@@ -82,8 +82,8 @@ export const useActivitiesStore = defineStore('activity', {
           Date.now(),
         );
         const args = { before: lastActivityStart / 1000 };
-        this.loading = { args, promise: fetchActivities(cookies, args) };
-        const { data } = await this.loading.promise;
+        this.loading = { args, promise: fetchActivities(cookies, args).then(({ data }) => data) };
+        const data = await this.loading.promise;
         this.activities.push(...data);
         this.loading = null;
         return data;
