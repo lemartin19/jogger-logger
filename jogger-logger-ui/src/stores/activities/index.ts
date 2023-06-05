@@ -1,16 +1,9 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import type { VueCookies } from 'vue-cookies';
-import type { Activity } from './activities/types';
-import { getAuthCookie } from './auth';
-
-function formatActivities(activities: Activity[]) {
-  return activities.map((activity) => ({
-    ...activity,
-    start_date: new Date(activity.start_date),
-    start_date_local: new Date(activity.start_date_local),
-  }));
-}
+import type { Activity } from './types';
+import { getAuthCookie } from '../auth';
+import { formatActivity } from './formatActivity';
 
 interface FetchActivityArgs {
   before?: number;
@@ -28,7 +21,20 @@ function fetchActivities(cookies: VueCookies, args: FetchActivityArgs = {}) {
       },
     )
     .then((response) => {
-      return { ...response, data: formatActivities(response.data) };
+      return { ...response, data: response.data.map(formatActivity) };
+    });
+}
+
+function fetchActivity(cookies: VueCookies, id: string) {
+  const token = getAuthCookie(cookies);
+  return axios
+    .get<Activity>(`https://www.strava.com/api/v3/activities/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      return { ...response, data: formatActivity(response.data) };
     });
 }
 
@@ -41,11 +47,12 @@ export interface State {
   activities: Activity[] | null;
   loading: Loading | null;
   error: string | null;
+  currentActivity: Activity | null;
 }
 
 export const useActivitiesStore = defineStore('activity', {
   state(): State {
-    return { activities: null, error: null, loading: null };
+    return { activities: null, error: null, loading: null, currentActivity: null };
   },
 
   actions: {
@@ -91,6 +98,12 @@ export const useActivitiesStore = defineStore('activity', {
         this.loading = null;
         this.error = `${error}`;
       }
+    },
+
+    async fetchActivity(cookies: VueCookies, id: string) {
+      const { data } = await fetchActivity(cookies, id);
+      this.currentActivity = data;
+      return data;
     },
   },
 });
