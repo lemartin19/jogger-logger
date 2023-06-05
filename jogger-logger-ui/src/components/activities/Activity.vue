@@ -21,7 +21,7 @@ export default {
   methods: {
     setCurrentActivity() {
       if (this.activity) {
-        this.$router.push(`/activities/${this.activity.id}`)
+        this.$router.push(`/activities/${this.activity.id}`);
         this.currentActivityStore.currentActivity = this.activity;
       }
     },
