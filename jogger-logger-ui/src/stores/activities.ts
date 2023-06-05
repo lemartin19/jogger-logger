@@ -4,11 +4,6 @@ import { getAuthCookie } from './auth';
 import type { VueCookies } from 'vue-cookies';
 import axios from 'axios';
 
-export interface State {
-  activities: Activity[] | null;
-  error: string | null;
-}
-
 function formatActivities(activities: Activity[]) {
   return activities.map((activity) => ({
     ...activity,
@@ -17,7 +12,11 @@ function formatActivities(activities: Activity[]) {
   }));
 }
 
-function fetchActivities(cookies: VueCookies, args: { before?: number } = {}) {
+interface FetchActivityArgs {
+  before?: number;
+}
+
+function fetchActivities(cookies: VueCookies, args: FetchActivityArgs = {}) {
   const token = getAuthCookie(cookies);
   return axios
     .get<Activity[]>(
@@ -33,19 +32,37 @@ function fetchActivities(cookies: VueCookies, args: { before?: number } = {}) {
     });
 }
 
+interface Loading {
+  args: FetchActivityArgs;
+  promise: ReturnType<typeof fetchActivities>;
+}
+
+export interface State {
+  activities: Activity[] | null;
+  loading: Loading | null;
+  error: string | null;
+}
+
 export const useActivitiesStore = defineStore('activity', {
   state(): State {
-    return { activities: null, error: null };
+    return { activities: null, error: null, loading: null };
   },
 
   actions: {
     async fetchInitialActivities(cookies: VueCookies) {
+      if (this.loading) {
+        return this.loading.promise;
+      }
+
+      this.loading = { args: {}, promise: fetchActivities(cookies) };
       try {
-        const { data } = await fetchActivities(cookies);
+        const { data } = await this.loading.promise;
+        this.loading = null;
         this.activities = data;
         return data;
       } catch (error) {
         this.error = `${error}`;
+        this.loading = null;
         return null;
       }
     },
@@ -55,15 +72,23 @@ export const useActivitiesStore = defineStore('activity', {
         return this.fetchInitialActivities(cookies);
       }
 
+      if (this.loading) {
+        return this.loading.promise;
+      }
+
       try {
         const lastActivityStart = this.activities.reduce(
           (lastStart, activity) => Math.min(activity.start_date.valueOf(), lastStart),
           Date.now(),
         );
-        const { data } = await fetchActivities(cookies, { before: lastActivityStart / 1000 });
+        const args = { before: lastActivityStart / 1000 };
+        this.loading = { args, promise: fetchActivities(cookies, args) };
+        const { data } = await this.loading.promise;
         this.activities.push(...data);
+        this.loading = null;
         return data;
       } catch (error) {
+        this.loading = null;
         this.error = `${error}`;
       }
     },

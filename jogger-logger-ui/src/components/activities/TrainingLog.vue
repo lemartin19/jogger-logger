@@ -4,6 +4,7 @@ import { getActivitiesByWeek } from '@/stores/activities/getActivitiesByWeek';
 import { debounce } from '@/utils/debounce';
 import TrainingWeek from './TrainingWeek.vue';
 import { ACTIVITY_HEIGHT } from './constants';
+import DebouncedVirtualScroll from './DebouncedVirtualScroll.vue';
 
 const LOADER_HEIGHT = 48;
 const ALERT_HEIGHT = 64;
@@ -37,7 +38,7 @@ export default {
     },
   },
 
-  components: { TrainingWeek },
+  components: { TrainingWeek, DebouncedVirtualScroll },
 
   methods: {
     async loadItems() {
@@ -52,6 +53,7 @@ export default {
         this.trainingWeeks = getActivitiesByWeek({ activities: this.activitiesStore.activities });
       }
     },
+
     scrollListener(event: Event) {
       const element = event.currentTarget || event.target;
 
@@ -59,9 +61,8 @@ export default {
 
       // @ts-expect-error the scroll events have these values
       const currentHeight = element.scrollHeight - element.scrollTop;
-      const maxHeight = this.maxHeightDiff;
       // @ts-expect-error the scroll events have these values
-      const bottomHeight = element.clientHeight + maxHeight;
+      const bottomHeight = element.clientHeight + this.maxHeightDiff;
       if (currentHeight <= bottomHeight + LOADING_BUFFER) {
         this.loadItems();
       }
@@ -71,17 +72,17 @@ export default {
 </script>
 
 <template>
-  <v-virtual-scroll
+  <DebouncedVirtualScroll
     class="px-8 py-4"
     :style="`max-height: calc(100vh - ${maxHeightDiff}px)`"
     :items="trainingWeeks"
     :item-height="itemHeight"
-    @scroll.native="debounce(scrollListener, 400)"
+    :scroll="scrollListener"
   >
-    <template v-slot:default="{ item }">
+    <template v-slot="{ item }">
       <TrainingWeek :trainingWeek="item" />
     </template>
-  </v-virtual-scroll>
+  </DebouncedVirtualScroll>
   <v-progress-circular v-if="loading" color="primary" indeterminate :height="loaderHeight" />
   <v-alert v-if="activitiesStore.error" type="error" :height="alertHeight">
     {{ activitiesStore.error }}

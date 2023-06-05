@@ -5,15 +5,11 @@ export function debounce<Args extends any[]>(
   let call: NodeJS.Timeout;
 
   return function (...args: Args) {
-    if (!call) {
-      call = setTimeout(() => {
-        fn(...args);
-      }, timeout);
-    } else {
+    if (call) {
       clearTimeout(call);
-      call = setTimeout(() => {
-        fn(...args);
-      }, timeout);
     }
+    call = setTimeout(() => {
+      fn(...args);
+    }, timeout);
   };
 }

@@ -16,7 +16,7 @@ export default {
     <v-main>
       <v-app>
         <NavigationBar />
-        <div class="pt-16">
+        <div class="pt-16 fill-height">
           <RouterView />
         </div>
       </v-app>
