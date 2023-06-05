@@ -1,6 +1,6 @@
 <script lang="ts">
 import { getAuthCookie } from '@/stores/auth';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 import LoginButton from './LoginButton.vue';
 import ThemeToggle from './ThemeToggle.vue';
 

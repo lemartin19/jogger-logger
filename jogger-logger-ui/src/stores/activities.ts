@@ -60,7 +60,7 @@ export const useActivitiesStore = defineStore('activity', {
           (lastStart, activity) => Math.min(activity.start_date.valueOf(), lastStart),
           Date.now(),
         );
-        const { data } = await fetchActivities(cookies, { before: lastActivityStart });
+        const { data } = await fetchActivities(cookies, { before: lastActivityStart / 1000 });
         this.activities.push(...data);
         return data;
       } catch (error) {

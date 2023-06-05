@@ -1,7 +1,7 @@
 <script lang="ts">
 import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 
 const { VITE_SERVER, DEV, VITE_AUTH_COOKIE } = import.meta.env;
 

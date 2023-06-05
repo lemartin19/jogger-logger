@@ -1,7 +1,7 @@
 <script lang="ts">
 import { getAuthCookie } from '@/stores/auth';
 import { routeNameToTitle } from '@/router';
-import { eventBus, COOKIE_SET } from '@/EventBus';
+import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 import AppSettings from './AppSettings.vue';
 
 export default {
@@ -39,7 +39,7 @@ export default {
       this.drawer = false;
     },
     setIsAuthed() {
-      this.isAuthed = getIsAuthed(this.$cookies);
+      this.isAuthed = Boolean(getAuthCookie(this.$cookies));
     },
   },
 };
