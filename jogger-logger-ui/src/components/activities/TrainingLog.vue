@@ -76,8 +76,8 @@ export default {
     </template>
   </DebouncedVirtualScroll>
   <div class="d-flex flex-column align-center" style="position: absolute; bottom: 0">
-    <v-alert type="error" class="ma-4" height="64px">
-      {{ activitiesStore.error || 'contents' }}
+    <v-alert v-if="activitiesStore.error" type="error" class="ma-4" height="64px">
+      {{ activitiesStore.error }}
     </v-alert>
     <v-progress-circular v-if="loading" class="mb-4" color="primary" indeterminate height="48px" />
   </div>
