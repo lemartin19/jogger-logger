@@ -2,14 +2,14 @@
 import type { Activity } from '@/stores/activities/types';
 import type { PropType } from 'vue';
 import { ACTIVITY_HEIGHT } from './constants';
-import { useCurrentActivityStore } from '@/stores/current-activity';
+import { useActivitiesStore } from '@/stores/activities';
 
 export default {
   props: { activity: Object as PropType<Activity> },
 
   setup() {
-    const currentActivityStore = useCurrentActivityStore();
-    return { currentActivityStore };
+    const activitiesStore = useActivitiesStore();
+    return { activitiesStore };
   },
 
   computed: {
@@ -22,7 +22,7 @@ export default {
     setCurrentActivity() {
       if (this.activity) {
         this.$router.push(`/activities/${this.activity.id}`);
-        this.currentActivityStore.currentActivity = this.activity;
+        this.activitiesStore.currentActivity = this.activity;
       }
     },
   },
