@@ -36,6 +36,15 @@ export default {
         >
           <Activity :activity="activity" />
         </template>
+        <v-tooltip activator="parent" location="bottom" open-delay="400">
+          <p
+            v-for="activity in trainingWeek.activities.filter(
+              (activity) => activity.start_date.getDay() === day,
+            )"
+          >
+            {{ activity.name }}
+          </p>
+        </v-tooltip>
       </v-col>
     </template>
   </v-row>
