@@ -12,19 +12,22 @@ export default {
       return `height: ${ACTIVITY_HEIGHT}px`;
     },
   },
+  methods: {
+    dateToLocaleString(date: Date) {
+      return date.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    },
+  },
 };
 </script>
 
 <template>
   <v-row v-if="trainingWeek" class="flex-nowrap" :style="style">
     <v-col class="ma-auto">
-      {{
-        trainingWeek.startDate.toLocaleDateString('en-us', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        })
-      }}
+      {{ dateToLocaleString(trainingWeek.startDate) }}
     </v-col>
 
     <template v-for="day in [1,2,3,4,5,6,0] as const">
@@ -36,16 +39,9 @@ export default {
           activator="parent"
           location="bottom"
           open-delay="400"
-          :disabled="trainingWeek.days[day].hasActivities()"
         >
           <p>
-            {{
-              trainingWeek.days[day].date.toLocaleDateString('en-us', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-              })
-            }}
+            {{ dateToLocaleString(trainingWeek.days[day].date) }}
           </p>
           <p v-for="activity in trainingWeek.days[day].activities">
             {{ activity.name }}
