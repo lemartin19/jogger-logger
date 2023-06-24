@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <v-col class="ma-auto" v-if="trainingDay">
+  <v-col class="ma-auto d-flex flex-column align-center" v-if="trainingDay">
     <template v-for="activity in trainingDay.activities">
       <Activity :activity="activity" />
     </template>
