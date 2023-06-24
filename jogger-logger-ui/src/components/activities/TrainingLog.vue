@@ -65,7 +65,7 @@ export default {
 
 <template>
   <DebouncedVirtualScroll
-    class="px-8 py-4"
+    class="px-8 py-4 w-100"
     :style="`max-height: calc(100vh - ${maxHeightDiff}px)`"
     :items="trainingWeeks"
     :item-height="itemHeight"

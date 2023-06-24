@@ -1,42 +1,27 @@
 <script lang="ts">
-import type { TrainingWeek } from '@/stores/activities/getActivitiesByWeek';
-import type { PropType } from 'vue';
-import Activity from './Activity.vue';
+import { TrainingWeek } from '@/stores/activities/getActivitiesByWeek';
+import { WEEKDAYS, dateToLocaleDateString } from '@/utils/dates';
+import TrainingDay from './TrainingDay.vue';
 import { ACTIVITY_HEIGHT } from './constants';
 
 export default {
-  props: { trainingWeek: Object as PropType<TrainingWeek> },
-  components: { Activity },
-  computed: {
-    style() {
-      return `height: ${ACTIVITY_HEIGHT}px`;
-    },
+  props: { trainingWeek: TrainingWeek },
+  setup() {
+    return { WEEKDAYS, style: `height: ${ACTIVITY_HEIGHT}px` };
   },
+  components: { TrainingDay },
+  methods: { dateToLocaleDateString },
 };
 </script>
 
 <template>
   <v-row v-if="trainingWeek" class="flex-nowrap" :style="style">
     <v-col class="ma-auto">
-      {{
-        trainingWeek.startDate.toLocaleDateString('en-us', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        })
-      }}
+      {{ dateToLocaleDateString(trainingWeek.startDate) }}
     </v-col>
 
-    <template v-for="day in [1, 2, 3, 4, 5, 6, 0]">
-      <v-col class="ma-auto">
-        <template
-          v-for="activity in trainingWeek.activities.filter(
-            (activity) => activity.start_date.getDay() === day,
-          )"
-        >
-          <Activity :activity="activity" />
-        </template>
-      </v-col>
+    <template v-for="day in WEEKDAYS">
+      <TrainingDay :trainingDay="trainingWeek.days[day]" />
     </template>
   </v-row>
 </template>

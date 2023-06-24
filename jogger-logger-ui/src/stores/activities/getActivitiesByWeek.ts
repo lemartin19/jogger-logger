@@ -1,36 +1,47 @@
+import { MONDAY, ONE_DAY, WEEKDAYS, getMondayBefore, type Weekday, ONE_WEEK } from '@/utils/dates';
 import type { Activity } from './types';
 
-const ONE_DAY = 24 * 60 * 60 * 1000;
-const ONE_WEEK = 7 * ONE_DAY;
-const MONDAY = 1;
-
-function weeksBetween(endDate: Date, startDate: Date) {
-  const dateDiff = Math.abs(endDate.valueOf() - startDate.valueOf());
-  return Math.round(dateDiff / ONE_WEEK);
-}
-
-function getMondayBefore(date = new Date()) {
-  const dateDay = date.getDay() || 7;
-  const mondayDate = new Date(date.valueOf() - ONE_DAY * (dateDay - MONDAY));
-  mondayDate.setHours(0);
-  mondayDate.setMinutes(0);
-  mondayDate.setSeconds(0);
-  mondayDate.setMilliseconds(0);
-  return mondayDate;
-}
-
-function buildIsActivityInRange(startDate: Date, endDate: Date) {
-  return function (activity: Activity) {
-    return (
-      startDate.valueOf() < activity.start_date.valueOf() &&
-      activity.start_date.valueOf() <= endDate.valueOf()
-    );
-  };
-}
-
-export interface TrainingWeek {
-  startDate: Date;
+export class TrainingDay {
+  date: Date;
   activities: Activity[];
+
+  constructor(date: Date) {
+    this.date = date;
+    this.activities = [];
+  }
+
+  hasActivities() {
+    return Boolean(this.activities.length);
+  }
+}
+
+export class TrainingWeek {
+  startDate: Date;
+  days: { [day in Weekday]: TrainingDay };
+
+  constructor(startDate: Date) {
+    this.startDate = startDate;
+
+    const week = {} as TrainingWeek['days'];
+    WEEKDAYS.forEach((dayOfWeek) => {
+      week[dayOfWeek] = new TrainingDay(
+        new Date(startDate.valueOf() + ONE_DAY * ((dayOfWeek || 7) - MONDAY)),
+      );
+    });
+    this.days = week;
+  }
+
+  isActivityInWeek(activity: Activity) {
+    const weekStartsBeforeActivity = this.startDate.valueOf() < activity.start_date.valueOf();
+    const activityBeforeWeekEnds =
+      activity.start_date.valueOf() <= this.startDate.valueOf() + ONE_WEEK;
+    return weekStartsBeforeActivity && activityBeforeWeekEnds;
+  }
+
+  addActivity(activity: Activity) {
+    const activityDay = activity.start_date.getDay() as Weekday;
+    this.days[activityDay].activities.push(activity);
+  }
 }
 
 // assumes activities are sorted newest to oldest
@@ -46,19 +57,28 @@ export function getActivitiesByWeek({
   if (!activities) return null;
 
   const earliestDate = startDate
-    ? startDate.valueOf()
-    : Math.min(...activities.map((activity) => activity.start_date.valueOf()));
+    ? startDate
+    : activities[activities.length - 1]?.start_date || new Date();
+  const earliestDateValue = earliestDate.valueOf();
   let currentWeekStart = getMondayBefore(endDate);
 
-  const trainingWeeks: TrainingWeek[] = [];
-  while (currentWeekStart.valueOf() > earliestDate) {
-    const startOfNextWeek = new Date(currentWeekStart.valueOf() - ONE_WEEK);
-    trainingWeeks.push({
-      startDate: currentWeekStart,
-      activities: activities.filter(buildIsActivityInRange(startOfNextWeek, currentWeekStart)),
-    });
+  let activityIndex = 0;
 
-    currentWeekStart = startOfNextWeek;
+  const trainingWeeks: TrainingWeek[] = [];
+  while (currentWeekStart.valueOf() >= earliestDateValue) {
+    const startOfPreviousWeek = new Date(currentWeekStart.valueOf() - ONE_WEEK);
+    const currentWeek = new TrainingWeek(currentWeekStart);
+    trainingWeeks.push(currentWeek);
+
+    while (
+      activityIndex < activities.length &&
+      currentWeek.isActivityInWeek(activities[activityIndex])
+    ) {
+      currentWeek.addActivity(activities[activityIndex]);
+      activityIndex++;
+    }
+
+    currentWeekStart = startOfPreviousWeek;
   }
 
   return trainingWeeks;
