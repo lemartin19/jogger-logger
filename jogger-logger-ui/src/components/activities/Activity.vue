@@ -43,7 +43,6 @@ export default {
     <template v-slot:default="{ isHovering, props }">
       <v-card
         :style="activityStyle"
-        variant="tonal"
         class="ma-2 activity"
         v-bind="props"
         :color="isHovering ? 'secondary' : 'primary'"
