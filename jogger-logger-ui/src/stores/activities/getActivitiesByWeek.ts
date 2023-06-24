@@ -1,6 +1,5 @@
+import { MONDAY, ONE_DAY, WEEKDAYS, getMondayBefore, type Weekday, ONE_WEEK } from '@/utils/dates';
 import type { Activity } from './types';
-
-type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export class TrainingDay {
   date: Date;
@@ -43,17 +42,6 @@ export class TrainingWeek {
     const activityDay = activity.start_date.getDay() as Weekday;
     this.days[activityDay].activities.push(activity);
   }
-}
-
-const ONE_DAY = 24 * 60 * 60 * 1000;
-const ONE_WEEK = 7 * ONE_DAY;
-const MONDAY = 1;
-export const WEEKDAYS: Weekday[] = [MONDAY, 2, 3, 4, 5, 6, 0];
-
-export function getMondayBefore(date = new Date()) {
-  const dateDay = date.getDay() || 7;
-  const mondayDate = new Date(date.valueOf() - ONE_DAY * (dateDay - MONDAY));
-  return new Date(mondayDate.toDateString());
 }
 
 // assumes activities are sorted newest to oldest
