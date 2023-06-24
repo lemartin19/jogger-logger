@@ -1,6 +1,5 @@
 <script lang="ts">
 import { TrainingDay } from '@/stores/activities/getActivitiesByWeek';
-import { dateToLocaleDateString } from '@/utils/dates';
 import Activity from './Activity.vue';
 import TrainingDayPopover from './TrainingDayPopover.vue';
 
