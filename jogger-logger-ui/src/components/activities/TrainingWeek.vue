@@ -29,22 +29,25 @@ export default {
 
     <template v-for="day in [1,2,3,4,5,6,0] as const">
       <v-col class="ma-auto">
-        <template
-          v-for="activity in trainingWeek.days[day].activities"
-        >
+        <template v-for="activity in trainingWeek.days[day].activities">
           <Activity :activity="activity" />
         </template>
-        <v-tooltip activator="parent" location="bottom" open-delay="400" :disabled="trainingWeek.days[day].hasActivities()">
+        <v-tooltip
+          activator="parent"
+          location="bottom"
+          open-delay="400"
+          :disabled="trainingWeek.days[day].hasActivities()"
+        >
           <p>
-            {{ trainingWeek.days[day].date.toLocaleDateString('en-us', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        }) }}
+            {{
+              trainingWeek.days[day].date.toLocaleDateString('en-us', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              })
+            }}
           </p>
-          <p
-            v-for="activity in trainingWeek.days[day].activities"
-          >
+          <p v-for="activity in trainingWeek.days[day].activities">
             {{ activity.name }}
           </p>
         </v-tooltip>
