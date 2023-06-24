@@ -42,7 +42,11 @@ export default {
       <v-container class="ma-0">
         <v-row>
           <template v-for="{ key, label, format } in datum">
-            <ActivityData :label="label" :value="activitiesStore.currentActivity[key]" :format="format" />
+            <ActivityData
+              :label="label"
+              :value="activitiesStore.currentActivity[key]"
+              :format="format"
+            />
           </template>
         </v-row>
       </v-container>
