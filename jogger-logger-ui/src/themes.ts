@@ -1,20 +1,19 @@
 import type { ThemeDefinition } from 'vuetify';
 
-// https://coolors.co/1c1c22-d0ddd9-5d8a7a-4a6d61-846887-9a809d-4d9bdc-7ca574-e9da76-cc2936
-
+// https://coolors.co/f3fffc-1c1c22-5d8a7a-bb8bb0-b93127-e7c34b-4c6dc7-3f7d3a
 const light: ThemeDefinition = {
   dark: false,
   colors: {
-    background: '#D0DDD9',
-    surface: '#B8CCC6',
-    'on-background': '#1C1C22',
-    'on-surface': '#1C1C22',
-    primary: '#5D8A7A',
-    secondary: '#BB8BB0',
-    error: '#CC2936',
-    info: '#4D9BDC',
-    success: '#7CA574',
-    warning: '#E9DA76',
+    background: '#F3FFFC', // Mint Cream
+    surface: '#F3FFFC', // Mint Cream
+    'on-background': '#1C1C22', // Raisin Black
+    'on-surface': '#1C1C22', // Raisin Black
+    primary: '#5D8A7A', // Viridian
+    secondary: '#BB8BB0', // African Violet
+    error: '#B93127', // Fire Brick
+    warning: '#E7C34B', // Saffron
+    info: '#4C6DC7', // Royal Blue (web-color)
+    success: '#3F7D3A', // Fern Green
   },
 };
 
@@ -22,8 +21,8 @@ const light: ThemeDefinition = {
 const dark: ThemeDefinition = {
   dark: true,
   colors: {
-    background: '#1C1C22', // Raisin black
-    surface: '#1C1C22', // Raisin black
+    background: '#1C1C22', // Raisin Black
+    surface: '#1C1C22', // Raisin Black
     'on-background': '#F3FFFC', // Mint Cream
     'on-surface': '#F3FFFC', // Mint Cream
     primary: '#BB8BB0', // African Violet
