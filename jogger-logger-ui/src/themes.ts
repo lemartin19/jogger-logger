@@ -10,9 +10,7 @@ const light: ThemeDefinition = {
     'on-background': '#1C1C22',
     'on-surface': '#1C1C22',
     primary: '#5D8A7A',
-    'primary-darken-1': '#4A6D61',
     secondary: '#BB8BB0',
-    'secondary-lighten-1': '#9A809D',
     error: '#CC2936',
     info: '#4D9BDC',
     success: '#7CA574',
@@ -20,19 +18,20 @@ const light: ThemeDefinition = {
   },
 };
 
+// https://coolors.co/1c1c22-f3fffc-bb8bb0-1e4844-972820-e6ba2a-3d68dd-1b8a3a
 const dark: ThemeDefinition = {
   dark: true,
   colors: {
-    background: '#1C1C22',
-    surface: '#2E2E38',
-    primary: '#5D8A7A',
-    'primary-darken-1': '#4A6D61',
-    secondary: '#BB8BB0',
-    'secondary-darken-1': '#9A809D',
-    error: '#CC2936',
-    info: '#4D9BDC',
-    success: '#7CA574',
-    warning: '#E9DA76',
+    background: '#1C1C22', // Raisin black
+    surface: '#1C1C22', // Raisin black
+    'on-background': '#F3FFFC', // Mint Cream
+    'on-surface': '#F3FFFC', // Mint Cream
+    primary: '#BB8BB0', // African Violet
+    secondary: '#1E4844', // Dark Slate Gray
+    error: '#972820', // Burnt Umber
+    warning: '#E6BA2A', // Saffron
+    info: '#3D68DD', // Royal Blue (web-color)
+    success: '#1B8A3A', // Forest Green
   },
 };
 
