@@ -7,7 +7,7 @@ import { TRAINING_WEEK_HEIGHT } from './constants';
 export default {
   props: { trainingWeek: TrainingWeek },
   setup() {
-    return { WEEKDAYS, style: `height: ${TRAINING_WEEK_HEIGHT}px` };
+    return { WEEKDAYS, style: `height: ${TRAINING_WEEK_HEIGHT}px;` };
   },
   components: { TrainingDay },
   methods: { dateToLocaleDateString },
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <v-row v-if="trainingWeek" class="flex-nowrap" :style="style">
+  <v-row v-if="trainingWeek" class="flex-nowrap bottom-border" :style="style">
     <v-col class="ma-auto">
       {{ dateToLocaleDateString(trainingWeek.startDate) }}
     </v-col>
@@ -25,3 +25,9 @@ export default {
     </template>
   </v-row>
 </template>
+
+<style scoped>
+.bottom-border {
+  border-bottom: 5px solid rgb(var(--v-theme-surface));
+}
+</style>

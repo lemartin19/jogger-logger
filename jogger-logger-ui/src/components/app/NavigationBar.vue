@@ -20,7 +20,7 @@ export default {
       this.pageName = routeNameToTitle(to.name);
     },
     $cookies(to, __from) {
-      this.isAuthed = getIsAuthed(to);
+      this.isAuthed = Boolean(getAuthCookie(to));
     },
   },
 
