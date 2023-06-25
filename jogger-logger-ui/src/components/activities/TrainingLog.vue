@@ -3,16 +3,16 @@ import { useActivitiesStore } from '@/stores/activities';
 import { getActivitiesByWeek } from '@/stores/activities/getActivitiesByWeek';
 import { debounce } from '@/utils/debounce';
 import TrainingWeek from './TrainingWeek.vue';
-import { ACTIVITY_HEIGHT } from './constants';
+import { TRAINING_WEEK_HEIGHT } from './constants';
 import DebouncedVirtualScroll from './DebouncedVirtualScroll.vue';
 
 const APP_BAR_HEIGHT = 64;
-const LOADING_BUFFER = ACTIVITY_HEIGHT;
+const LOADING_BUFFER = TRAINING_WEEK_HEIGHT;
 
 export default {
   setup() {
     return {
-      itemHeight: ACTIVITY_HEIGHT,
+      itemHeight: TRAINING_WEEK_HEIGHT,
       debounce,
     };
   },
