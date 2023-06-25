@@ -1,7 +1,7 @@
 import type { ThemeDefinition } from 'vuetify';
 
-// https://coolors.co/f3fffc-1c1c22-5d8a7a-bb8bb0-b93127-e7c34b-4c6dc7
-// accessibility: https://davidmathlogic.com/colorblind/#%23F3FFFC-%231C1C22-%235D8A7A-%23BB8BB0-%23B93127-%23E7C34B-%234C6DC7
+// https://coolors.co/f3fffc-1c1c22-1e4844-bb8bb0-b93127-e7c34b-4c6dc7
+// accessibility: https://davidmathlogic.com/colorblind/#%23F3FFFC-%231C1C22-%231E4844-%23BB8BB0-%23B93127-%23E7C34B-%234C6DC7
 const light: ThemeDefinition = {
   dark: false,
   colors: {
@@ -9,7 +9,7 @@ const light: ThemeDefinition = {
     surface: '#F3FFFC', // Mint Cream
     'on-background': '#1C1C22', // Raisin Black
     'on-surface': '#1C1C22', // Raisin Black
-    primary: '#5D8A7A', // Viridian
+    primary: '#1E4844', // Dark Slate Gray
     secondary: '#BB8BB0', // African Violet
     error: '#B93127', // Fire Brick
     warning: '#E7C34B', // Saffron
