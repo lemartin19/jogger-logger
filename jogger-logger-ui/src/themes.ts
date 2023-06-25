@@ -6,10 +6,11 @@ const light: ThemeDefinition = {
   dark: false,
   colors: {
     background: '#F1F9F8', // Mint Cream
-    surface: '#E2F3F1', // Azure (web)
     'on-background': '#1C1C22', // Raisin Black
+    surface: '#E2F3F1', // Azure (web)
     'on-surface': '#1C1C22', // Raisin Black
     primary: '#1E4844', // Dark Slate Gray
+    'on-primary': '#F1F9F8', // Mint Cream
     secondary: '#BB8BB0', // African Violet
     error: '#B93127', // Fire Brick
     warning: '#E7C34B', // Saffron
@@ -23,10 +24,11 @@ const dark: ThemeDefinition = {
   dark: true,
   colors: {
     background: '#1C1C22', // Raisin Black
-    surface: '#25252D', // Raisin Black
     'on-background': '#F1F9F8', // Mint Cream
+    surface: '#25252D', // Raisin Black
     'on-surface': '#F1F9F8', // Mint Cream
     primary: '#BB8BB0', // African Violet
+    'on-primary': '#1C1C22', // African Violet
     secondary: '#1E4844', // Dark Slate Gray
     error: '#972820', // Burnt Umber
     warning: '#E6BA2A', // Saffron

@@ -1,12 +1,34 @@
 <script lang="ts">
 import type { PropType } from 'vue';
-import type { Activity } from '@/stores/activities/types';
+import type { Activity, SportType } from '@/stores/activities/types';
 import { useActivitiesStore } from '@/stores/activities';
 import { MAX_ACTIVITY_RADIUS, MAX_METER_SCALAR, MIN_ACTIVITY_RADIUS } from './constants';
 import ActivityTooltip from './ActivityTooltip.vue';
 
 const MIN_ACTIVITY_DIAMETER = MIN_ACTIVITY_RADIUS * 2;
 const MAX_ACTIVITY_DIAMETER = MAX_ACTIVITY_RADIUS * 2;
+
+function sportToIconName(sport: SportType) {
+  switch (sport) {
+    case 'Ride':
+    case 'VirtualRide':
+    case 'MountainBikeRide':
+    case 'EBikeRide':
+    case 'EMountainBikeRide':
+    case 'GravelRide':
+    case 'Handcycle':
+      return 'mdi-bike';
+    case 'Run':
+    case 'TrailRun':
+    case 'VirtualRun':
+      return 'mdi-run';
+    case 'Crossfit':
+    case 'WeightTraining':
+      return 'mdi-weight-lifter';
+    default:
+      return 'mdi-chart-line-variant';
+  }
+}
 
 export default {
   props: { activity: Object as PropType<Activity>, topOffset: String },
@@ -36,6 +58,7 @@ export default {
         this.activitiesStore.currentActivity = this.activity;
       }
     },
+    sportToIconName,
   },
   components: { ActivityTooltip },
 };
@@ -45,12 +68,13 @@ export default {
   <v-hover v-if="activity">
     <template v-slot:default="{ isHovering, props }">
       <v-card
-        :style="activityStyle"
-        class="mx-auto activity"
+        :style="{ ...activityStyle, opacity: isHovering ? 1 : 0.5 }"
+        class="d-flex justify-center align-center activity"
         v-bind="props"
-        :color="isHovering ? 'secondary' : 'primary'"
+        color="primary"
         @click="setCurrentActivity"
       >
+        <v-icon :icon="sportToIconName(activity.sport_type)" />
         <ActivityTooltip :activity="activity" />
       </v-card>
     </template>
@@ -61,6 +85,5 @@ export default {
 .activity {
   clip-path: circle();
   position: absolute;
-  opacity: 0.5;
 }
 </style>
