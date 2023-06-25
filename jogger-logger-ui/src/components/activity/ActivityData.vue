@@ -9,11 +9,11 @@ export default {
 </script>
 
 <template>
-  <v-col cols="2">
+  <v-col cols="4">
     <v-card>
       <div class="pa-4">
         {{ label }}
-        <div style="font-size: 2.25em">
+        <div style="font-size: 2em">
           {{ formattedData }}
         </div>
       </div>

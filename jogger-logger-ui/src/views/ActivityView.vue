@@ -39,7 +39,7 @@ export default {
   <div class="pa-4">
     <div v-if="activitiesStore.currentActivity">
       <h2>{{ activitiesStore.currentActivity.name }}</h2>
-      <v-container class="ma-0">
+      <v-container>
         <v-row>
           <template v-for="{ key, label, format } in datum">
             <ActivityData
@@ -52,8 +52,8 @@ export default {
       </v-container>
       <ActivityMap :map="activitiesStore.currentActivity.map" />
     </div>
-    <v-alert v-else type="error" class="ma-4"
-      >Failed to display activity with id {{ $route.params.id }}</v-alert
-    >
+    <v-alert v-else type="error" class="ma-4">
+      Failed to display activity with id {{ $route.params.id }}
+    </v-alert>
   </div>
 </template>
