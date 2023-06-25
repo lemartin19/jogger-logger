@@ -2,12 +2,12 @@
 import { TrainingWeek } from '@/stores/activities/getActivitiesByWeek';
 import { WEEKDAYS, dateToLocaleDateString } from '@/utils/dates';
 import TrainingDay from './TrainingDay.vue';
-import { ACTIVITY_HEIGHT } from './constants';
+import { TRAINING_WEEK_HEIGHT } from './constants';
 
 export default {
   props: { trainingWeek: TrainingWeek },
   setup() {
-    return { WEEKDAYS, style: `height: ${ACTIVITY_HEIGHT}px` };
+    return { WEEKDAYS, style: `height: ${TRAINING_WEEK_HEIGHT}px` };
   },
   components: { TrainingDay },
   methods: { dateToLocaleDateString },
