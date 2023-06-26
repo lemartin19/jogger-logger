@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import type { VueCookies } from 'vue-cookies';
-import type { Activity } from './types';
+import type { Activity, SportType } from './types';
 import { getAuthCookie } from '../auth';
 import { formatActivity } from './formatActivity';
 
@@ -43,8 +43,13 @@ interface Loading {
   promise: Promise<Activity[]>;
 }
 
+export interface Filters {
+  sportTypes: SportType[] | null;
+}
+
 export interface State {
   activities: Activity[] | null;
+  filters: Filters;
   loading: Loading | null;
   error: string | null;
   currentActivity: Activity | null;
@@ -52,7 +57,20 @@ export interface State {
 
 export const useActivitiesStore = defineStore('activity', {
   state(): State {
-    return { activities: null, error: null, loading: null, currentActivity: null };
+    return {
+      activities: null,
+      filters: { sportTypes: null },
+      error: null,
+      loading: null,
+      currentActivity: null,
+    };
+  },
+
+  getters: {
+    copyFilters(): State['filters'] {
+      const sportTypes = this.filters.sportTypes;
+      return { sportTypes: sportTypes && [...sportTypes] };
+    },
   },
 
   actions: {
@@ -104,6 +122,10 @@ export const useActivitiesStore = defineStore('activity', {
       const { data } = await fetchActivity(cookies, id);
       this.currentActivity = data;
       return data;
+    },
+
+    setFilters(filters: Filters) {
+      this.filters = filters;
     },
   },
 });

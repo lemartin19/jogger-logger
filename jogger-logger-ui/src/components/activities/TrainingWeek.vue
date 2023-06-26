@@ -4,6 +4,7 @@ import { WEEKDAYS, dateToLocaleDateString } from '@/utils/dates';
 import TrainingDay from './TrainingDay.vue';
 import { TRAINING_WEEK_HEIGHT } from './constants';
 import { metersToMiles } from '../activity/formatData';
+import { useActivitiesStore } from '@/stores/activities';
 
 export default {
   props: { trainingWeek: TrainingWeek },
@@ -11,7 +12,16 @@ export default {
     return { WEEKDAYS, style: `height: ${TRAINING_WEEK_HEIGHT}px;` };
   },
   components: { TrainingDay },
-  methods: { dateToLocaleDateString, metersToMiles },
+  methods: {
+    dateToLocaleDateString,
+    calculateDistance() {
+      const activitiesStore = useActivitiesStore();
+      const totalDistance = this.trainingWeek
+        ? this.trainingWeek.totalDistance(activitiesStore.filters)
+        : 0;
+      return metersToMiles(totalDistance);
+    },
+  },
 };
 </script>
 
@@ -26,7 +36,7 @@ export default {
     </template>
 
     <v-col class="ma-auto">
-      {{ metersToMiles(trainingWeek.totalDistance()) }}
+      {{ calculateDistance() }}
     </v-col>
   </v-row>
 </template>
