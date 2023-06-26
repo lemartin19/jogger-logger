@@ -13,6 +13,12 @@ export class TrainingDay {
   hasActivities() {
     return Boolean(this.activities.length);
   }
+
+  totalDistance() {
+    return this.activities.reduce((acc, activity) => {
+      return acc + activity.distance;
+    }, 0);
+  }
 }
 
 export class TrainingWeek {
@@ -41,6 +47,13 @@ export class TrainingWeek {
   addActivity(activity: Activity) {
     const activityDay = activity.start_date.getDay() as Weekday;
     this.days[activityDay].activities.push(activity);
+  }
+
+  totalDistance() {
+    return WEEKDAYS.reduce<number>((acc, day) => {
+      const trainingDay = this.days[day];
+      return acc + trainingDay.totalDistance();
+    }, 0);
   }
 }
 
