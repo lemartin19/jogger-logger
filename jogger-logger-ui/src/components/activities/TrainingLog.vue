@@ -2,8 +2,9 @@
 import { useActivitiesStore } from '@/stores/activities';
 import { getActivitiesByWeek } from '@/stores/activities/getActivitiesByWeek';
 import { debounce } from '@/utils/debounce';
-import TrainingWeek from './TrainingWeek.vue';
 import { TRAINING_WEEK_HEIGHT } from './constants';
+import TrainingWeek from './TrainingWeek.vue';
+import TrainingLogFilters from './TrainingLogFilters.vue';
 import DebouncedVirtualScroll from './DebouncedVirtualScroll.vue';
 
 const APP_BAR_HEIGHT = 64;
@@ -30,7 +31,7 @@ export default {
     };
   },
 
-  components: { TrainingWeek, DebouncedVirtualScroll },
+  components: { TrainingWeek, DebouncedVirtualScroll, TrainingLogFilters },
 
   methods: {
     async loadItems() {
@@ -64,6 +65,7 @@ export default {
 </script>
 
 <template>
+  <TrainingLogFilters />
   <DebouncedVirtualScroll
     class="px-8 py-4 w-100"
     :style="`max-height: calc(100vh - ${maxHeightDiff}px)`"
