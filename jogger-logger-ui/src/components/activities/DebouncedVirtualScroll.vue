@@ -2,7 +2,7 @@
 import { debounce } from '@/utils/debounce';
 
 export default {
-  props: ['class', 'style', 'items', 'itemHeight', 'scroll'],
+  props: ['style', 'items', 'itemHeight', 'scroll'],
 
   setup(props) {
     return { debouncedScroll: debounce(props.scroll, 400) };
@@ -12,11 +12,11 @@ export default {
 
 <template>
   <v-virtual-scroll
-    :class="class"
+
     :style="style"
     :items="items"
     :item-height="itemHeight"
-    @scroll.native="debouncedScroll"
+    @scroll="debouncedScroll"
   >
     <template v-slot:default="{ item }"><slot :item="item"></slot></template>
   </v-virtual-scroll>

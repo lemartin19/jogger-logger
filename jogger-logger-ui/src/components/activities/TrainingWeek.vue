@@ -31,7 +31,7 @@ export default {
       {{ dateToLocaleDateString(trainingWeek.startDate) }}
     </v-col>
 
-    <template v-for="day in WEEKDAYS">
+    <template v-for="day in WEEKDAYS" v-bind:key="day">
       <TrainingDay :trainingDay="trainingWeek.days[day]" />
     </template>
 

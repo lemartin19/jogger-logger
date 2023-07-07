@@ -16,10 +16,10 @@ export default {
   },
 
   watch: {
-    $route(to, __from) {
+    $route(to) {
       this.pageName = routeNameToTitle(to.name);
     },
-    $cookies(to, __from) {
+    $cookies(to) {
       this.isAuthed = Boolean(getAuthCookie(to));
     },
   },
@@ -57,7 +57,7 @@ export default {
         <span v-if="pageName" class="text-medium-emphasis"> - {{ pageName }}</span>
       </h1>
     </v-app-bar-title>
-    <AppSettings v-slot:append />
+    <AppSettings />
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawer" location="left" temporary>
