@@ -1,5 +1,5 @@
 <script lang="ts">
-import { TrainingDay } from '@/stores/activities/getActivitiesByWeek';
+import { TrainingDay } from '@/stores/activities/TrainingDay';
 import TrainingDayActivity from './TrainingDayActivity.vue';
 import { TRAINING_WEEK_HEIGHT, MAX_ACTIVITY_RADIUS } from './constants';
 import { useActivitiesStore } from '@/stores/activities';
@@ -32,7 +32,10 @@ export default {
 <template>
   <v-col class="h-100 d-flex justify-center" style="position: relative" v-if="trainingDay">
     <template v-for="(activity, index) in filteredActivities" v-bind:key="index">
-      <TrainingDayActivity :activity="activity" :topOffset="`${(index + 1) * spaceBetweenActivities}px`" />
+      <TrainingDayActivity
+        :activity="activity"
+        :topOffset="`${(index + 1) * spaceBetweenActivities}px`"
+      />
     </template>
   </v-col>
 </template>

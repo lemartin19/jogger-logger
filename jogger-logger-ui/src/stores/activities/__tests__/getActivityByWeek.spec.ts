@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest';
 import assert from 'assert';
 
 import { WEEKDAYS, getMondayBefore } from '@/utils/dates';
-import { TrainingDay, TrainingWeek, getActivitiesByWeek } from '../getActivitiesByWeek';
+import { getActivitiesByWeek } from '../getActivitiesByWeek';
+import { TrainingWeek } from '../TrainingWeek';
+import { TrainingDay } from '../TrainingDay';
 
 describe('getActivitiesByWeek', () => {
   it('will not break with null activities', () => {

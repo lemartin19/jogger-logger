@@ -12,7 +12,6 @@ export default {
 
 <template>
   <v-virtual-scroll
-
     :style="style"
     :items="items"
     :item-height="itemHeight"
