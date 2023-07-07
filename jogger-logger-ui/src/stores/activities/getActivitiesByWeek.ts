@@ -1,6 +1,8 @@
 import { MONDAY, ONE_DAY, WEEKDAYS, getMondayBefore, type Weekday, ONE_WEEK } from '@/utils/dates';
 import type { Activity } from './types';
+import type { State } from '.';
 
+// TODO: move this to a new file
 export class TrainingDay {
   date: Date;
   activities: Activity[];
@@ -13,8 +15,23 @@ export class TrainingDay {
   hasActivities() {
     return Boolean(this.activities.length);
   }
+
+  totalDistance(filters?: State['filters']) {
+    const activitiesToCalculate = filters ? this.getFilteredActivities(filters) : this.activities;
+    return activitiesToCalculate.reduce((acc, activity) => {
+      return acc + activity.distance;
+    }, 0);
+  }
+
+  // TODO: make this a Filter object
+  getFilteredActivities(filters: State['filters']) {
+    return this.activities.filter((activity) => {
+      return !filters.sportTypes || filters.sportTypes.includes(activity.sport_type);
+    });
+  }
 }
 
+// TODO: move this to a new file
 export class TrainingWeek {
   startDate: Date;
   days: { [day in Weekday]: TrainingDay };
@@ -41,6 +58,13 @@ export class TrainingWeek {
   addActivity(activity: Activity) {
     const activityDay = activity.start_date.getDay() as Weekday;
     this.days[activityDay].activities.push(activity);
+  }
+
+  totalDistance(filters?: State['filters']) {
+    return WEEKDAYS.reduce<number>((acc, day) => {
+      const trainingDay = this.days[day];
+      return acc + trainingDay.totalDistance(filters);
+    }, 0);
   }
 }
 
