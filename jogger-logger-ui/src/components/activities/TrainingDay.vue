@@ -9,7 +9,8 @@ export default {
   components: { Activity },
   data() {
     const activitiesStore = useActivitiesStore();
-    const filteredActivities = this.trainingDay?.getFilteredActivities(activitiesStore.filters) || [];
+    const filteredActivities =
+      this.trainingDay?.getFilteredActivities(activitiesStore.filters) || [];
 
     const numberOfActivities = filteredActivities.length || 1;
     const spaceBetweenActivities =

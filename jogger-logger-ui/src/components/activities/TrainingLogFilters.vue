@@ -36,7 +36,11 @@ export default {
       this.collapse = true;
     },
     include() {
-      return [document.querySelector('.filters-toggle'), ...document.querySelectorAll('.filter')];
+      return [
+        document.querySelector('.filters-toggle'),
+        ...document.querySelectorAll('.v-overlay'),
+        ...document.querySelectorAll('.filter'),
+      ];
     },
   },
 };
