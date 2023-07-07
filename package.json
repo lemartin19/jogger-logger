@@ -7,7 +7,6 @@
     "ui": "cd jogger-logger-ui && npm run dev",
     "ts:server": "cd jogger-logger && npm run ts",
     "ts:ui": "cd jogger-logger-ui && npm run ts",
-    "lint": "eslint . --ext ,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   }
 }
