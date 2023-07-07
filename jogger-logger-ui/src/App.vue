@@ -1,5 +1,5 @@
 <script lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
 import NavigationBar from './components/app/NavigationBar.vue';
 
 export default {
@@ -7,7 +7,7 @@ export default {
     return { auth: null };
   },
 
-  components: { RouterLink, RouterView, NavigationBar },
+  components: { RouterView, NavigationBar },
 };
 </script>
 

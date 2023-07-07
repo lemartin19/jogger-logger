@@ -41,7 +41,7 @@ export default {
       <h2>{{ activitiesStore.currentActivity.name }}</h2>
       <v-container>
         <v-row>
-          <template v-for="{ key, label, format } in datum">
+          <template v-for="{ key, label, format } in datum" v-bind:key="key">
             <ActivityData
               :label="label"
               :value="activitiesStore.currentActivity[key]"

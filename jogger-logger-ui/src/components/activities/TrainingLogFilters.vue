@@ -1,7 +1,6 @@
 <script lang="ts">
 import { useActivitiesStore } from '@/stores/activities';
 import type { SportType } from '@/stores/activities/types';
-import { ALL } from 'dns';
 
 const MENU_WIDTH = 300;
 const ALLOWED_SPORT_FILTERS: SportType[] = ['Run', 'Ride'];
