@@ -62,16 +62,18 @@ export default {
         :width="MENU_WIDTH"
         class="filters-menu h-100 mt-16 pa-4 pl-2"
       >
-        <v-select
-          class="filter"
-          v-model="localFilters.sportTypes"
-          :items="ALLOWED_SPORT_FILTERS"
-          label="Select"
-          multiple
-          hint="Pick the sport types to display"
-          persistent-hint
-        />
-        <v-btn class="mt-1 ml-2" color="primary" @click="applyFilters">Apply</v-btn>
+        <div v-if="!collapse">
+          <v-select
+            class="filter"
+            v-model="localFilters.sportTypes"
+            :items="ALLOWED_SPORT_FILTERS"
+            label="Select"
+            multiple
+            hint="Pick the sport types to display"
+            persistent-hint
+          />
+          <v-btn class="mt-1 ml-2" color="primary" @click="applyFilters">Apply</v-btn>
+        </div>
       </v-card>
     </v-expand-x-transition>
   </div>
