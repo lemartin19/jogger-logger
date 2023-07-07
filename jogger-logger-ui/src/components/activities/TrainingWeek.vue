@@ -1,10 +1,10 @@
 <script lang="ts">
-import { TrainingWeek } from '@/stores/activities/getActivitiesByWeek';
 import { WEEKDAYS, dateToLocaleDateString } from '@/utils/dates';
 import TrainingDay from './TrainingDay.vue';
 import { TRAINING_WEEK_HEIGHT } from './constants';
 import { metersToMiles } from '../activity/formatData';
 import { useActivitiesStore } from '@/stores/activities';
+import { TrainingWeek } from '@/stores/activities/TrainingWeek';
 
 export default {
   props: { trainingWeek: TrainingWeek },
