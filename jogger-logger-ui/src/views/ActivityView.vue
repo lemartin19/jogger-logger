@@ -1,5 +1,6 @@
 <script lang="ts">
 import ActivityData from '@/components/activity/ActivityData.vue';
+import ActivityMap from '@/components/activity/ActivityMap.vue';
 import { useActivitiesStore } from '@/stores/activities';
 import type { Activity } from '@/stores/activities/types';
 import { dateToString, metersToMiles, secondsToHours } from '@/components/activity/formatData';
@@ -30,15 +31,14 @@ export default {
       this.activitiesStore.fetchActivity(this.$cookies, `${id}`);
     }
   },
-
-  components: { ActivityData },
+  components: { ActivityData, ActivityMap },
 };
 </script>
 
 <template>
-  <div class="pa-4">
-    <div v-if="activitiesStore.currentActivity">
-      <h2>{{ activitiesStore.currentActivity.name }}</h2>
+  <div class="pa-4 fill-height"  v-if="activitiesStore.currentActivity">
+    <h2>{{ activitiesStore.currentActivity.name }}</h2>
+    <div class="fill-height d-flex">
       <v-container>
         <v-row>
           <template v-for="{ key, label, format } in datum" v-bind:key="key">
@@ -52,8 +52,8 @@ export default {
       </v-container>
       <ActivityMap :map="activitiesStore.currentActivity.map" />
     </div>
-    <v-alert v-else type="error" class="ma-4">
-      Failed to display activity with id {{ $route.params.id }}
-    </v-alert>
   </div>
+  <v-alert v-else type="error" class="ma-4">
+    Failed to display activity with id {{ $route.params.id }}
+  </v-alert>
 </template>
