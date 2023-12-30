@@ -9,6 +9,7 @@ import { TrainingWeek } from '@/stores/activities/TrainingWeek';
 export default {
   props: { trainingWeek: TrainingWeek },
   setup() {
+    // debugger;
     return { WEEKDAYS, style: `height: ${TRAINING_WEEK_HEIGHT}px;` };
   },
   components: { TrainingDay },

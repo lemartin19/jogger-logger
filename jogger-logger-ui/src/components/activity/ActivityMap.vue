@@ -17,7 +17,7 @@ export default {
       strokeWeight: 4,
     };
 
-    return { apiPromise,  polylineOptions };
+    return { apiPromise, polylineOptions };
   },
   mounted() {
     this.apiPromise.then((google) => {
@@ -26,9 +26,9 @@ export default {
       const path = codedPath ? decodePath(codedPath) : [];
 
       const bounds = new google.maps.LatLngBounds();
-      path.forEach(point => {
+      path.forEach((point) => {
         bounds.extend(point);
-      })
+      });
 
       this.polylineOptions.path = path;
       (this.$refs.mapRef as google.maps.Map).map.fitBounds(bounds);
@@ -41,14 +41,10 @@ export default {
 
 <template>
   <div class="map-wrapper">
-  <GoogleMap
-    :api-promise="apiPromise"
-    ref="mapRef"
-    style="width: 100%; height: 100%;"
-  >
-    <GooglePolyline :options="polylineOptions" />
-  </GoogleMap>
-</div>
+    <GoogleMap :api-promise="apiPromise" ref="mapRef" style="width: 100%; height: 100%">
+      <GooglePolyline :options="polylineOptions" />
+    </GoogleMap>
+  </div>
 </template>
 
 <style scoped>

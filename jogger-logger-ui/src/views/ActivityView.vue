@@ -36,7 +36,7 @@ export default {
 </script>
 
 <template>
-  <div class="pa-4 fill-height"  v-if="activitiesStore.currentActivity">
+  <div class="pa-4 fill-height" v-if="activitiesStore.currentActivity">
     <h2>{{ activitiesStore.currentActivity.name }}</h2>
     <div class="fill-height d-flex">
       <v-container>
