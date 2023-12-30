@@ -31,9 +31,30 @@ export default {
     };
   },
 
+  watch: {
+    ['activitiesStore.error']() {
+      this.loading = false
+    },
+  },
+
+  mounted() {
+    this.loadItemsIfScreenShort();
+  },
+
+  updated() {
+    this.loadItemsIfScreenShort();
+  },
+
   components: { TrainingWeek, DebouncedVirtualScroll, TrainingLogFilters },
 
   methods: {
+    async loadItemsIfScreenShort() {
+      const screenHeight = document.body.clientHeight;
+      if (this.trainingWeeks && this.itemHeight * this.trainingWeeks.length <= screenHeight) {
+        this.loadItems();
+      }
+    },
+
     async loadItems() {
       if (!this.canLoadMore) return;
 

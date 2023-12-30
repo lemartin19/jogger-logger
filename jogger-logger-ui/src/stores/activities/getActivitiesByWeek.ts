@@ -23,11 +23,9 @@ export function getActivitiesByWeek({
   let activityIndex = 0;
 
   const trainingWeeks: TrainingWeek[] = [];
-  while (currentWeekStart.valueOf() >= earliestDateValue) {
-    const startOfPreviousWeek = new Date(currentWeekStart.valueOf() - ONE_WEEK);
+  do {
     const currentWeek = new TrainingWeek(currentWeekStart);
     trainingWeeks.push(currentWeek);
-
     while (
       activityIndex < activities.length &&
       currentWeek.isActivityInWeek(activities[activityIndex])
@@ -36,8 +34,8 @@ export function getActivitiesByWeek({
       activityIndex++;
     }
 
-    currentWeekStart = startOfPreviousWeek;
-  }
+    currentWeekStart = new Date(currentWeekStart.valueOf() - ONE_WEEK);
+  } while (currentWeekStart.valueOf() >= earliestDateValue);
 
   return trainingWeeks;
 }

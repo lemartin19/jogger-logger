@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { defineStore } from 'pinia';
 import type { VueCookies } from 'vue-cookies';
 import type { Activity, SportType } from './types';
@@ -79,14 +79,17 @@ export const useActivitiesStore = defineStore('activity', {
         return this.loading.promise;
       }
 
-      this.loading = { args: {}, promise: fetchActivities(cookies).then(({ data }) => data) };
+      this.loading = {
+        args: {},
+        promise: fetchActivities(cookies).then(({ data }) => data),
+      };
       try {
         const data = await this.loading.promise;
         this.loading = null;
         this.activities = data;
         return data;
       } catch (error) {
-        this.error = `${error}`;
+        this.error = `${(error as AxiosError).message || error}`;
         this.loading = null;
         return null;
       }
@@ -114,7 +117,7 @@ export const useActivitiesStore = defineStore('activity', {
         return data;
       } catch (error) {
         this.loading = null;
-        this.error = `${error}`;
+        this.error = `${(error as AxiosError).message || error}`;
       }
     },
 
