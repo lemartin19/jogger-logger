@@ -86,7 +86,7 @@ export interface Activity {
   end_latlng: LatLng;
   location_city: null;
   location_state: null;
-  location_country: string;
+  location_country: string | null;
   achievement_count: number;
   kudos_count: number;
   comment_count: number;
@@ -97,6 +97,7 @@ export interface Activity {
   commute: boolean;
   manual: boolean;
   private: boolean;
+  visibility: string;
   flagged: boolean;
   gear_id: string;
   from_accepted_tag: false;
@@ -110,7 +111,12 @@ export interface Activity {
   has_heartrate: boolean;
   average_heartrate: number;
   max_heartrate: number;
+  heartrate_opt_out: boolean;
+  display_hide_heartrate_option: boolean;
   max_watts: number;
+  elev_high: number;
+  elev_low: number;
+  upload_id_str: string;
   pr_count: number;
   total_photo_count: number;
   has_kudoed: boolean;

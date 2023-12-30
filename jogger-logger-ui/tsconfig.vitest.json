@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
+  "include": ["**/__tests__/fixtures.ts", "**/types.ts", "**/utils/*.ts"],
   "exclude": [],
   "compilerOptions": {
     "composite": true,

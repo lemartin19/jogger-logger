@@ -20,9 +20,9 @@ export class TrainingWeek {
   }
 
   isActivityInWeek(activity: Activity) {
-    const weekStartsBeforeActivity = this.startDate.valueOf() < activity.start_date.valueOf();
+    const weekStartsBeforeActivity = this.startDate.valueOf() <= activity.start_date.valueOf();
     const activityBeforeWeekEnds =
-      activity.start_date.valueOf() <= this.startDate.valueOf() + ONE_WEEK;
+      activity.start_date.valueOf() < this.startDate.valueOf() + ONE_WEEK;
     return weekStartsBeforeActivity && activityBeforeWeekEnds;
   }
 
