@@ -33,7 +33,7 @@ export default {
 
   watch: {
     ['activitiesStore.error']() {
-      this.loading = false
+      this.loading = false;
     },
   },
 
