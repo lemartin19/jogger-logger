@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "install": "cd jogger-logger && npm install && cd ../jogger-logger-ui && npm install",
     "server": "cd jogger-logger && npm run dev",
     "ui": "cd jogger-logger-ui && npm run dev",
     "ts:server": "cd jogger-logger && npm run ts",
