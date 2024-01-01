@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/auth';
 import axios from 'axios';
 import { eventBus, COOKIE_SET } from '@/utils/EventBus';
 
-const { VITE_SERVER, VITE_AUTH_COOKIE } = import.meta.env;
+const { VITE_AUTH_COOKIE } = import.meta.env;
 
 export default {
   data(): { loading: boolean; error: string | null; authStore: ReturnType<typeof useAuthStore> } {
@@ -19,7 +19,7 @@ export default {
     if (!code) {
       this.error = `Can't authorize to Strava without code parameter.`;
     } else {
-      const serverEndpoint = `http://${VITE_SERVER}/exchange?code=${code}`;
+      const serverEndpoint = `/exchange?code=${code}`;
       axios
         .post(serverEndpoint)
         .then(({ data }) => {
