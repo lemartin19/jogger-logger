@@ -1,4 +1,5 @@
 import { createServer } from 'http';
+import { assets } from './services/assets';
 import { exchange } from './services/exchange';
 
 function getService(pathname: string, method: string = 'GET') {
@@ -6,7 +7,7 @@ function getService(pathname: string, method: string = 'GET') {
     case '/exchange':
       return exchange[method];
     default:
-      return null;
+      return assets[method];
   }
 }
 

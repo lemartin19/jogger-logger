@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "type-check": "tsc --noEmit",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "TZ=UTC vitest",
