@@ -4,9 +4,12 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "build": "npm install -g typescript && tsc --build",
+    "clean": "rm -rf dist && tsc --build --clean",
     "dev": "npx ts-node ./src/index.ts",
     "ts": "tsc --noEmit -w",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@google-cloud/secret-manager": "^5.0.1",
