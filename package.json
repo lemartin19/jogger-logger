@@ -8,8 +8,8 @@
     "ui": "cd jogger-logger-ui && npm run dev",
     "ts:server": "cd jogger-logger && npm run ts",
     "ts:ui": "cd jogger-logger-ui && npm run ts",
-    "clean": "rm -rf jogger-logger/dist",
-    "build": "npm run clean && cd jogger-logger-ui && npm run build && mv dist ../jogger-logger/dist",
+    "clean": "cd jogger-logger && npm run clean",
+    "build": "npm run clean && cd jogger-logger-ui && npm run build && mv dist ../jogger-logger/dist && cd ../jogger-logger && npm run build",
     "deploy": "npm run build && cd ../jogger-logger && gcloud app deploy",
     "format": "prettier --write src/"
   }

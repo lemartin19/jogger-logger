@@ -4,8 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "npm install -g typescript && tsc --build",
-    "clean": "rm -rf dist && tsc --build --clean",
+    "build": "npm install -g typescript && tsc --build && echo \"'use strict';\nrequire('./src/index.js');\n\" > server.js",
+    "clean": "rm -rf dist server.js && tsc --build --clean",
     "dev": "npx ts-node ./src/index.ts",
     "ts": "tsc --noEmit -w",
     "format": "prettier --write src/",
