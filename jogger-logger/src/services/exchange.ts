@@ -1,41 +1,54 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { request } from 'https';
+import { accessStravaApiSecret } from '../google-secrets';
 import { Service } from './Service';
 
+const CLIENT_ID = 96120;
+
 function exchangeToken(code: string) {
-  const url = new URL(`https://www.strava.com/oauth/token`);
-  url.searchParams.set('client_id', process.env.CLIENT_ID!);
-  url.searchParams.set('client_secret', process.env.CLIENT_SECRET!);
-  url.searchParams.set('code', code);
-  url.searchParams.set('grant_type', 'authorization_code');
+  const urlPromise = accessStravaApiSecret().then((client_secret) => {
+    const baseUrl = new URL(`https://www.strava.com/oauth/token`);
+    baseUrl.searchParams.set('client_id', CLIENT_ID.toString());
+    baseUrl.searchParams.set('client_secret', client_secret);
+    baseUrl.searchParams.set('code', code);
+    baseUrl.searchParams.set('grant_type', 'authorization_code');
+    return baseUrl;
+  });
 
   return new Promise((resolve, reject) => {
-    let response = '';
+    urlPromise
+      .then((url) => {
+        let response = '';
+        const req = request(url, { method: 'POST' }, (res) => {
+          if (res.statusCode !== 200) {
+            reject(
+              new Error(`Recieved status code "${res.statusCode}" from request for OAuth token.`),
+            );
+          }
 
-    const req = request(url, { method: 'POST' }, (res) => {
-      if (res.statusCode !== 200) {
-        reject(new Error(`Recieved status code "${res.statusCode}" from request for OAuth token.`));
-      }
+          res.on('data', (data) => {
+            response += data;
+          });
 
-      res.on('data', (data) => {
-        response += data;
-      });
+          res.on('close', () => {
+            try {
+              resolve(response);
+            } catch (e) {
+              reject(e);
+            }
+          });
+        });
 
-      res.on('close', () => {
-        try {
-          resolve(response);
-        } catch (e) {
+        req.on('error', (e) => {
+          console.error(e);
           reject(e);
-        }
+        });
+
+        req.end();
+      })
+      .catch((e) => {
+        reject(e);
       });
-    });
-
-    req.on('error', (e) => {
-      console.error(e);
-      reject(e);
-    });
-
-    req.end();
   });
 }
 
