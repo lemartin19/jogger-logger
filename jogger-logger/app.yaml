@@ -1,1 +1,12 @@
 runtime: nodejs20
+
+service_account: 576731916396-compute@developer.gserviceaccount.com
+
+handlers:
+  - url: /assets
+    static_dir: dist/assets
+  - url: /api/.*
+    script: auto
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
