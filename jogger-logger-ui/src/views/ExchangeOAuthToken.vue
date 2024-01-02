@@ -19,9 +19,8 @@ export default {
     if (!code) {
       this.error = `Can't authorize to Strava without code parameter.`;
     } else {
-      const serverEndpoint = `${VITE_SERVER}api/exchange?code=${code}`;
       axios
-        .post(serverEndpoint)
+        .post(`${VITE_SERVER}/exchange?code=${code}`)
         .then(({ data }) => {
           const profile = data['profile'];
           const accessToken = data['access_token'];
