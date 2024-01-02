@@ -14,8 +14,6 @@ dist-ssr
 coverage
 *.local
 
-server.js
-
 .secrets.conf
 
 /cypress/videos/
