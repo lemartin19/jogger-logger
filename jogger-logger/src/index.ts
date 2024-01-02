@@ -1,18 +1,19 @@
 import { createServer } from 'http';
 import { exchange } from './services/exchange';
 
-function getService(pathname: string, method: string = 'GET') {
-  switch (pathname) {
-    case '/exchange':
+function getService(serviceName: string, method: string = 'GET') {
+  switch (serviceName) {
+    case 'exchange':
       return exchange[method];
     default:
-      return null;
+      return undefined;
   }
 }
 
 const server = createServer((request, response) => {
   const url = new URL(request.url!, `http://${request.headers.host}`);
-  const service = getService(url.pathname, request.method);
+  const serviceName = url.pathname.split('api/')[1];
+  const service = getService(serviceName, request.method);
   if (service) {
     service(request, response);
   } else {
@@ -20,9 +21,8 @@ const server = createServer((request, response) => {
   }
 });
 
-const hostname = 'localhost';
-const port = 3001;
+const port = process.env.PORT || 8080;
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(port, () => {
+  console.log(`Listening on ${port}/`);
 });
